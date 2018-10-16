@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-This function runs simple basic tasks (ie. eye open & close, gaze)
-to configure lab environment properly prior to running the actual EEG.
+This function runs simple basic tasks (ie. eye open & close, gaze) and photocell alignment
+to properly configure lab environment prior to running the actual EEG.
 Run this .py file on PsychoPy.
 
-You can change settings below. Read commented descriptions for detail.
+Below, You can set swtiches to change environment, or change variables to vary the duration of experiment.
+Read commented descriptions for detail.
+
+Ex. To run this locally on your device without NetStation connection, make sure to turn switches:
+netstation=False
+recording=False
 """
 from __future__ import absolute_import, division
 from psychopy import locale_setup, sound, gui, visual, core, data, event, logging, clock
@@ -24,13 +29,13 @@ import decimal
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 # Switches #
-netstation=False      #False to run the file locally without connecting to NetStation
-recording=False       #True starts recording NetStation automatically
-systemSound=True      #True plays sound feedback/when to open your eyes
-photocell=True        #True allows use of photocell device
+netstation  = False       #False to run the file locally without connecting to NetStation
+recording   = False       #True starts recording NetStation automatically
+photocell   = True        #True allows use of photocell device
+systemSound = True        #True is recommended // plays sound feedback to open your eyes
 
 # Main task/routine durations in frames #
-dur_description=240
+dur_description=240   #duration of instruction page
 dur_open=300          #open/blinking eyes
 dur_close=300         #eyes closed
 dur_gazL=300          #gaze left
@@ -40,12 +45,12 @@ dur_gazD=300          #gaze down
 gaze_pos=0.9          #cross position (proportional to screen)
                       #position will be L(-0.7,0),R(0.7,0) ... so on
 
-# Photocell variables #
-dur_whitesquare=0.001 # Duration of photocell square blinking
-square_width=0.5      #default: 1.5 cm
-square_height=0.5     #default: 1.5 cm
-square_pos=(14.9,11.2)#default: (15.1,11.3)
-square_opac=0.9       #default: 1 (range from 0-1)
+# Photocell variables #Default values are based on current lab environment
+dur_whitesquare=0.001 #Minimize duration of photocell square blinking
+square_width=0.5      #default: 0.5 cm
+square_height=0.5     #default: 0.5 cm
+square_pos=(14.9,11.2)#default: (14.9,11.2)
+square_opac=0.9       #default: 0.9 (range from 0-1)
 
 # Misc #
 frameRate_backup=60   #backup switch for framerate. Default = 60

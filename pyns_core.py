@@ -1,16 +1,17 @@
 """
 This module contains functions to calculate average timing difference to test the synchronization of PsychoPy and NetStation logs.
-Processing log info is segmented into 3 phases to add flexibility.
+Processing log info is segmented into 3 phases to add flexibility:
+	- filter_log: mainly cleaning data
+	- filter_event: filter data to user's event tags
+	- timediff: computes time difference
+
 There are 3 functions for each, PsychoPy and NetStation.
 
 Order of processing:
 1. PsychoPy:   filter_pylog --> filter_pyevent --> timediff_py
 2. NetStation: filter_nslog --> filter_nsevent --> timediff_ns
-Then use average_diff to compare two timestamps.
 
-Filter_log: mainly cleaning data
-Filter_event: filter data to user's event tags
-timediff: computes time difference
+Then use average_diff to compare two timestamps.
 
 The second part measures and prints out timing difference for photocell timing in PsychoPy and NetStation machine
 

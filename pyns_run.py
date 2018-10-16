@@ -1,17 +1,23 @@
 """
 This file compiles all the functions from pyns_core.py into a single function
 'pyns_run' allows to insert custom event labels as variable length argument
-See function help for details of each argument ie. help(pyns_run)
+See function help for details of each argument ie. help(pyns_diff)
 
 Basic syntax:
-Example1 = pyns_run('test2','test1','data','int','ope','clo','gaz','end')
+Example1 = pyns_diff('test2','test1','data','int','ope','clo','gaz','end')
 Example2 = pyns_pc('test2','test1','wsq','ope','clo','gaz')
 """
-
 from text_to_csv import text_to_csv
+print('Imported text_to_csv')
 import pyns_core as pyns
+print('Imported pyns_core \n')
 
-def pyns_run(pylog, nslog, filter_py='data', *event_tags):
+print("QUICK GUIDE: \n 1. pyns_diff: for measuring PY-NS timing \n 2. pyns_pc: for measuring photocell timing\n")
+print("SYNTAX: pyns_diff(string of PsychoPy log, string of NS log, 'data', 'custom event tags seperated by comma')")
+print("SYNTAX: pyns_pc  (string of PsychoPy log, string of NS log, 'photocell tag', 'custom event tags seperated by comma')")
+print("TYPE: 'help(pyns_run)' or 'help(pyns_pc)' for detail")
+
+def pyns_diff(pylog, nslog, filter_py='data', *event_tags):
 	"""
 	Compiles all the functions from pyns_core.py to compare PsychoPy and NetStation logs.
 
@@ -45,7 +51,8 @@ def pyns_run(pylog, nslog, filter_py='data', *event_tags):
 	print "Average Psychopy-Netstation: " + str(avg) + " ms"
 	return avg
 
-Example1 = pyns_run('test2','test1','data','int','ope','clo','gaz','end')
+# For running test1, test2 files:
+# example1 = pyns_diff('test2','test1','data','int','ope','clo','gaz','end')
 
 
 ### Photocell Timing ###
@@ -69,4 +76,5 @@ def pyns_pc(pylog, nslog, pypc_tag='wsq', *event_tags):
 	print('Average NetStation photocell timing diff: ' + str(filtered_nspc) + ' ms')
 	return filtered_pypc, filtered_nspc
 
-Example2 = pyns_pc('test2','test1','wsq','ope','clo','gaz')
+# For running test1, test2 files:
+# example2 = pyns_pc('test2','test1','wsq','ope','clo','gaz')
