@@ -4,7 +4,8 @@
 
 For full documentation and details, please refer to Wiki, or docstring of each function (ie. help(function name)). The default values and setup are all currently configured to lab environment. The experiment can be run on local device without NetStation connection as well.
 
-### Prerequisites
+
+## Prerequisites
 All the codes are written in Python, and have been tested on PsychoPy 1.90.3. 
 
 **For running experiment script: pyns_exp.py...**
@@ -13,6 +14,7 @@ All the codes are written in Python, and have been tested on PsychoPy 1.90.3.
 
 **For running post-experiment script: pyns_run.py...** 
 All the scripts are written in Python. Specifically, scripts import [csv](https://docs.python.org/2/library/csv.html), time, [numpy](https://www.scipy.org/scipylib/download.html), [pandas](https://pandas.pydata.org/), Decimal. If you do not have any one of the packages, you should download them regardless of running this experiment code as they are essential when programming with Python. 
+
 
 ## Getting Started
 \*\* Refer to Wiki page for proper setup/running thoroughly
@@ -67,9 +69,11 @@ example2 = pyns_pc('test2','test1','wsq','ope','clo','gaz')
 ``` 
 This will print out average Photocell timing difference in PsychoPy and NetStation seperately. You should get `3.1` and `43.0` ms each. 
 
+
 ## Issues
 
 Feel free to submit bugs/potential improvements on Issues :) 
+
 
 ## Acknowledgments
 
