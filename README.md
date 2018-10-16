@@ -9,10 +9,10 @@ For full documentation and details, please refer to Wiki, or docstring of each f
 All the codes are written in Python, and have been tested on PsychoPy 1.90.3. 
 
 **For running experiment script: pyns_exp.py...**
-1. It is recommended to have a **standlone PsychoPy** installed on the device. The lab currently uses PsychoPy 1.90.3 ([Link to PsychoPy GitHub](https://github.com/psychopy/psychopy/releases), which is the latest stable version. For instructions on installing PsychoPy, refer to Wiki page.
+1. It is recommended to have a **standlone PsychoPy** installed on the device. The lab currently uses PsychoPy 1.90.3 ([Link to PsychoPy GitHub](https://github.com/psychopy/psychopy/releases)), which is the latest stable version. For instructions on installing PsychoPy, refer to Wiki page.
 2. **egi pynetstation module**: even though this module comes with full standalone PsychoPy version, you can download it at [http://www.psychopy.org/api/hardware/egi.html](http://www.psychopy.org/api/hardware/egi.html). If you run the experiment code locally without NetStation connection, this module is not needed. 
 
-**For running post-experiment script: pyns_run.py...** 
+**For running post-experiment script: pyns_run.py...** <br>
 All the scripts are written in Python. Specifically, scripts import [csv](https://docs.python.org/2/library/csv.html), time, [numpy](https://www.scipy.org/scipylib/download.html), [pandas](https://pandas.pydata.org/), Decimal. If you do not have any one of the packages, you should download them regardless of running this experiment code as they are essential when programming with Python. 
 
 
