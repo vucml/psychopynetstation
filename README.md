@@ -5,20 +5,25 @@
 For full documentation and details, please refer to Wiki, or docstring of each function (ie. help(function name)). The default values and setup are all currently configured to lab environment. The experiment can be run on local device without NetStation connection as well.
 
 
-## Prerequisites
+## Dependencies
 All the codes are written in Python, and have been tested on PsychoPy 1.90.3. 
 
-**For running experiment script: pyns_exp.py...**
+### Running experiment script (pyns_exp.py)
+
 1. It is recommended to have a **standlone PsychoPy** installed on the device. The lab currently uses PsychoPy 1.90.3 ([Link to PsychoPy GitHub](https://github.com/psychopy/psychopy/releases)), which is the latest stable version. For instructions on installing PsychoPy, refer to Wiki page.
+
 2. **egi pynetstation module**: even though this module comes with full standalone PsychoPy version, you can download it at [http://www.psychopy.org/api/hardware/egi.html](http://www.psychopy.org/api/hardware/egi.html). If you run the experiment code locally without NetStation connection, this module is not needed. 
 
-**For running post-experiment script: pyns_run.py...** <br>
+### For running post-experiment script (pyns_run.py)
+
 All the scripts are written in Python. Specifically, scripts import [csv](https://docs.python.org/2/library/csv.html), time, [numpy](https://www.scipy.org/scipylib/download.html), [pandas](https://pandas.pydata.org/), Decimal. If you do not have any one of the packages, you should download them regardless of running this experiment code as they are essential when programming with Python. 
 
 
 ## Getting Started
+
 \*\* Refer to Wiki page for proper setup/running thoroughly
 This section will quickly run through testing the experiment without NetStation connection. Then, using example files 'test1' (NetStation event text log) and 'test2' (PsychoPy experiment log), we will run process scripts to read timing difference. Throughout documentation and function docstrings, you may find 'test1' and 'test2' referred for this reason. 
+
 
 ### Part A: Running Experiment (pyns_exp.py)
 
@@ -50,6 +55,7 @@ recording   = False       #True starts recording NetStation automatically
 
 4. Once complete, experiment data will be saved in data file. The file extension with .log will be what we will be using for checking timing. 
 
+
 ### Part B: Running Post Experiment (pyns_run.py)
 
 This section uses example files 'test1' and 'test2'. By the time you completed Part A with proper NetStation connection, you should have two log files: One from PsychoPy log and the other from NetStation event log. 
@@ -79,6 +85,6 @@ Feel free to submit bugs/potential improvements on Issues :)
 
 ## Acknowledgments
 
-* pyns_exp base code is from PsychoPy builder
+* pyns_exp base code is based on PsychoPy builder
 * EGI Pynetstation module is used for PsychoPy to EGI NetStation connection 
 
