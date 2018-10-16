@@ -29,20 +29,22 @@ git clone https://github.com/vucml/PsychoPyNetStation.git
 
 2. Open pyns_exp.py by opening or dragging it to PsychoPy. It should open the script in PsychoPy's Coder view. Look at section `Custom Variables` to change accordingly. You may also alter duration (in frames) below. 
 
-  * Running without NetStation connection: 
+
+  * 2a. Running without NetStation connection: 
 ```python
 # Switches #
 netstation  = False       #False to run the file locally without connecting to NetStation
 recording   = False       #True starts recording NetStation automatically
-``` 
-  * Running with NetStation connection: 
+```
+
+  * 2b. Running with NetStation connection: 
 ```python
 # Switches #
 netstation  = True       #False to run the file locally without connecting to NetStation
 recording   = False       #True starts recording NetStation automatically
 ```
 
-  * Trouble-shooting/configuring sound or DIN input: You can vary the switches `photocell` and `systemSound`
+  * 2c. Trouble-shooting/configuring sound or DIN input: You can vary the switches `photocell` and `systemSound`
 
 3. Complete the experiment. The experiment will go through basic tasks, such as staring at the center cross, closing eyes, gazing (staring) at varing positions of cross. With NetStation connected, these would be helpful indicator/baseline for EEG waveforms. 
 
