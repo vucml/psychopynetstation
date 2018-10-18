@@ -1,0 +1,527 @@
+5.2300 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1280, 800]. Using actual size
+5.9358 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, args=UNKNOWN, autoLog=True, bitsMode=UNKNOWN, blendMode='avg', color=array([-1., -1., -1.]), colorSpace='rgb', fullscr=UNKNOWN, gamma=None, kwargs=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x11379ecf8>, multiSample=False, name='window1', numSamples=2, pos=[0.0, 0.0], screen=0, size=array([2560, 1600]), stereo=False, units='norm', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.9358 	EXP 	window1: recordFrameIntervals = False
+6.1014 	EXP 	window1: recordFrameIntervals = True
+6.2848 	EXP 	window1: recordFrameIntervals = False
+6.2920 	EXP 	<method-wrapper '__getattribute__' of attributeSetter object at 0x104559198>: vertices = array([[-0.25,  0.25],
+       [ 0.25,  0.25],
+       [ 0.25, -0.25],
+       [-0.25, -0.25]])
+6.2936 	EXP 	Created whitesquare = Rect(__class__=<class 'psychopy.visual.rect.Rect'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', fillRGB=array([1., 1., 1.]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1., 1., 1.]), lineWidth=1, name='whitesquare', opacity=0.9, ori=array(0.), pos=array([14.9, 11.2]), size=array([1., 1.]), units='cm', vertices=ndarray(...), win=Window(...))
+6.4194 	EXP 	Created intro_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='intro_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='norm', win=Window(...), wrapWidth=1)
+6.4562 	EXP 	Created intro_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='intro_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='norm', win=Window(...), wrapWidth=1)
+6.4708 	EXP 	Created open_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='open_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='norm', win=Window(...), wrapWidth=1)
+6.4755 	EXP 	Created fixation = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='fixation', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text='+\n', units='norm', win=Window(...), wrapWidth=1)
+6.4888 	EXP 	Created close_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='close_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='norm', win=Window(...), wrapWidth=1)
+6.4915 	EXP 	Created blank = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=-1.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='blank', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=' ', units='norm', win=Window(...), wrapWidth=1)
+6.5558 	EXP 	Set  sound=./sound/open_speak.wav
+6.5559 	EXP 	Set Sound  volume=1.000
+6.5709 	EXP 	Created gaze_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='gaze_text', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text=str(...), units='norm', win=Window(...), wrapWidth=1)
+6.5728 	EXP 	Created center = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineWidth=1, name='center', opacity=1.0, ori=array(0.), pos=array([0., 0.]), size=array([0.5, 0.5]), units='cm', vertices=ndarray(...), win=Window(...), windingRule=None)
+6.5737 	EXP 	Set  sound=./sound/left_speak.wav
+6.5738 	EXP 	Set Sound  volume=1.000
+6.5757 	EXP 	Created left = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineWidth=1, name='left', opacity=1.0, ori=array(0.), pos=array([-14.,   0.]), size=array([0.5, 0.5]), units='cm', vertices=ndarray(...), win=Window(...), windingRule=None)
+6.5764 	EXP 	Set  sound=./sound/right_speak.wav
+6.5765 	EXP 	Set Sound  volume=1.000
+6.5786 	EXP 	Created right = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineWidth=1, name='right', opacity=1.0, ori=array(0.), pos=array([14.,  0.]), size=array([0.5, 0.5]), units='cm', vertices=ndarray(...), win=Window(...), windingRule=None)
+6.5793 	EXP 	Set  sound=./sound/up_speak.wav
+6.5794 	EXP 	Set Sound  volume=1.000
+6.5813 	EXP 	Created up = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineWidth=1, name='up', opacity=1.0, ori=array(0.), pos=array([ 0., 14.]), size=array([0.5, 0.5]), units='cm', vertices=ndarray(...), win=Window(...), windingRule=None)
+6.5821 	EXP 	Set  sound=./sound/down_speak.wav
+6.5821 	EXP 	Set Sound  volume=1.000
+6.5840 	EXP 	Created down = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, autoDraw=False, autoLog=True, closeShape=True, contrast=1.0, depth=0.0, fillColor=array([1., 1., 1.]), fillColorSpace='rgb', interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineWidth=1, name='down', opacity=1.0, ori=array(0.), pos=array([  0., -14.]), size=array([0.5, 0.5]), units='cm', vertices=ndarray(...), win=Window(...), windingRule=None)
+6.5975 	EXP 	Created esc = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz='center', alignVert='center', antialias=True, autoLog=True, bold=False, color='white', colorSpace='named', contrast=1.0, depth=0.0, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.1, italic=False, name='esc', opacity=1.0, ori=0, pos=array([0., 0.]), rgb=array([255., 255., 255.]), text="End of test\n\nPress 'esc'", units='norm', win=Window(...), wrapWidth=1)
+6.6358 	EXP 	intro_text: autoDraw = True
+6.6358 	EXP 	whitesquare: autoDraw = True
+7.1561 	DATA 	Keypress: space
+7.1850 	EXP 	intro_text: autoDraw = False
+7.1850 	EXP 	whitesquare: autoDraw = False
+7.1850 	EXP 	intro_text: autoDraw = True
+7.7881 	DATA 	Keypress: space
+7.8022 	EXP 	intro_text: autoDraw = False
+12.8056 	DATA 	wsqS
+12.8209 	EXP 	fixation: autoDraw = True
+12.8209 	EXP 	whitesquare: autoDraw = True
+12.8209 	EXP 	whitesquare: autoDraw = False
+12.8387 	DATA 	wsqS
+12.8542 	EXP 	fixation: autoDraw = True
+12.8542 	EXP 	whitesquare: autoDraw = True
+12.8542 	EXP 	whitesquare: autoDraw = False
+12.8720 	DATA 	wsqS
+12.8878 	EXP 	fixation: autoDraw = True
+12.8878 	EXP 	whitesquare: autoDraw = True
+12.8878 	EXP 	whitesquare: autoDraw = False
+12.9057 	DATA 	wsqS
+12.9209 	EXP 	fixation: autoDraw = True
+12.9209 	EXP 	whitesquare: autoDraw = True
+12.9209 	EXP 	whitesquare: autoDraw = False
+12.9387 	DATA 	wsqS
+12.9542 	EXP 	fixation: autoDraw = True
+12.9542 	EXP 	whitesquare: autoDraw = True
+12.9542 	EXP 	whitesquare: autoDraw = False
+12.9719 	DATA 	wsqS
+12.9875 	EXP 	fixation: autoDraw = True
+12.9875 	EXP 	whitesquare: autoDraw = True
+12.9875 	EXP 	whitesquare: autoDraw = False
+13.0055 	DATA 	wsqS
+13.0213 	EXP 	fixation: autoDraw = True
+13.0213 	EXP 	whitesquare: autoDraw = True
+13.0213 	EXP 	whitesquare: autoDraw = False
+13.0387 	DATA 	wsqS
+13.0542 	EXP 	fixation: autoDraw = True
+13.0542 	EXP 	whitesquare: autoDraw = True
+13.0542 	EXP 	whitesquare: autoDraw = False
+13.0721 	DATA 	wsqS
+13.0876 	EXP 	fixation: autoDraw = True
+13.0876 	EXP 	whitesquare: autoDraw = True
+13.0876 	EXP 	whitesquare: autoDraw = False
+13.1054 	DATA 	wsqS
+13.1209 	EXP 	fixation: autoDraw = True
+13.1209 	EXP 	whitesquare: autoDraw = True
+13.1209 	EXP 	whitesquare: autoDraw = False
+13.1389 	DATA 	wsqS
+13.1543 	EXP 	fixation: autoDraw = True
+13.1543 	EXP 	whitesquare: autoDraw = True
+13.1543 	EXP 	whitesquare: autoDraw = False
+13.1723 	DATA 	wsqS
+13.1879 	EXP 	fixation: autoDraw = True
+13.1879 	EXP 	whitesquare: autoDraw = True
+13.1879 	EXP 	whitesquare: autoDraw = False
+13.2054 	DATA 	wsqS
+13.2212 	EXP 	fixation: autoDraw = True
+13.2212 	EXP 	whitesquare: autoDraw = True
+13.2212 	EXP 	whitesquare: autoDraw = False
+13.2388 	DATA 	wsqS
+13.2544 	EXP 	fixation: autoDraw = True
+13.2544 	EXP 	whitesquare: autoDraw = True
+13.2544 	EXP 	whitesquare: autoDraw = False
+13.2720 	DATA 	wsqS
+13.2879 	EXP 	fixation: autoDraw = True
+13.2879 	EXP 	whitesquare: autoDraw = True
+13.2879 	EXP 	whitesquare: autoDraw = False
+13.3055 	DATA 	wsqS
+13.3210 	EXP 	fixation: autoDraw = True
+13.3210 	EXP 	whitesquare: autoDraw = True
+13.3210 	EXP 	whitesquare: autoDraw = False
+13.3390 	DATA 	wsqS
+13.3544 	EXP 	fixation: autoDraw = True
+13.3544 	EXP 	whitesquare: autoDraw = True
+13.3544 	EXP 	whitesquare: autoDraw = False
+13.3723 	DATA 	wsqS
+13.3877 	EXP 	fixation: autoDraw = True
+13.3877 	EXP 	whitesquare: autoDraw = True
+13.3877 	EXP 	whitesquare: autoDraw = False
+13.4056 	DATA 	wsqS
+13.4210 	EXP 	fixation: autoDraw = True
+13.4210 	EXP 	whitesquare: autoDraw = True
+13.4210 	EXP 	whitesquare: autoDraw = False
+13.4390 	DATA 	wsqS
+13.4546 	EXP 	fixation: autoDraw = True
+13.4546 	EXP 	whitesquare: autoDraw = True
+13.4546 	EXP 	whitesquare: autoDraw = False
+13.4722 	DATA 	wsqS
+13.4878 	EXP 	fixation: autoDraw = True
+13.4878 	EXP 	whitesquare: autoDraw = True
+13.4878 	EXP 	whitesquare: autoDraw = False
+13.5055 	DATA 	wsqS
+13.5211 	EXP 	fixation: autoDraw = True
+13.5211 	EXP 	whitesquare: autoDraw = True
+13.5211 	EXP 	whitesquare: autoDraw = False
+13.5390 	DATA 	wsqS
+13.5545 	EXP 	fixation: autoDraw = True
+13.5545 	EXP 	whitesquare: autoDraw = True
+13.5545 	EXP 	whitesquare: autoDraw = False
+13.5722 	DATA 	wsqS
+13.5878 	EXP 	fixation: autoDraw = True
+13.5878 	EXP 	whitesquare: autoDraw = True
+13.5878 	EXP 	whitesquare: autoDraw = False
+13.6056 	DATA 	wsqS
+13.6212 	EXP 	fixation: autoDraw = True
+13.6212 	EXP 	whitesquare: autoDraw = True
+13.6212 	EXP 	whitesquare: autoDraw = False
+13.6391 	DATA 	wsqS
+13.6545 	EXP 	fixation: autoDraw = True
+13.6545 	EXP 	whitesquare: autoDraw = True
+13.6545 	EXP 	whitesquare: autoDraw = False
+13.6724 	DATA 	wsqS
+13.6878 	EXP 	fixation: autoDraw = True
+13.6878 	EXP 	whitesquare: autoDraw = True
+13.6878 	EXP 	whitesquare: autoDraw = False
+13.7058 	DATA 	wsqS
+13.7212 	EXP 	fixation: autoDraw = True
+13.7212 	EXP 	whitesquare: autoDraw = True
+13.7212 	EXP 	whitesquare: autoDraw = False
+13.7390 	DATA 	wsqS
+13.7549 	EXP 	fixation: autoDraw = True
+13.7549 	EXP 	whitesquare: autoDraw = True
+13.7549 	EXP 	whitesquare: autoDraw = False
+13.7723 	DATA 	wsqS
+13.7880 	EXP 	fixation: autoDraw = True
+13.7880 	EXP 	whitesquare: autoDraw = True
+13.7880 	EXP 	whitesquare: autoDraw = False
+13.8057 	DATA 	wsqS
+13.8213 	EXP 	fixation: autoDraw = True
+13.8213 	EXP 	whitesquare: autoDraw = True
+13.8213 	EXP 	whitesquare: autoDraw = False
+13.8390 	DATA 	wsqS
+13.8547 	EXP 	fixation: autoDraw = True
+13.8547 	EXP 	whitesquare: autoDraw = True
+13.8547 	EXP 	whitesquare: autoDraw = False
+13.8724 	DATA 	wsqS
+13.8879 	EXP 	fixation: autoDraw = True
+13.8879 	EXP 	whitesquare: autoDraw = True
+13.8879 	EXP 	whitesquare: autoDraw = False
+13.9058 	DATA 	wsqS
+13.9215 	EXP 	fixation: autoDraw = True
+13.9215 	EXP 	whitesquare: autoDraw = True
+13.9215 	EXP 	whitesquare: autoDraw = False
+13.9392 	DATA 	wsqS
+13.9547 	EXP 	fixation: autoDraw = True
+13.9547 	EXP 	whitesquare: autoDraw = True
+13.9547 	EXP 	whitesquare: autoDraw = False
+13.9725 	DATA 	wsqS
+13.9880 	EXP 	fixation: autoDraw = True
+13.9880 	EXP 	whitesquare: autoDraw = True
+13.9880 	EXP 	whitesquare: autoDraw = False
+14.0058 	DATA 	wsqS
+14.0218 	EXP 	fixation: autoDraw = True
+14.0218 	EXP 	whitesquare: autoDraw = True
+14.0218 	EXP 	whitesquare: autoDraw = False
+14.0391 	DATA 	wsqS
+14.0548 	EXP 	fixation: autoDraw = True
+14.0548 	EXP 	whitesquare: autoDraw = True
+14.0548 	EXP 	whitesquare: autoDraw = False
+14.0727 	DATA 	wsqS
+14.0881 	EXP 	fixation: autoDraw = True
+14.0881 	EXP 	whitesquare: autoDraw = True
+14.0881 	EXP 	whitesquare: autoDraw = False
+14.1058 	DATA 	wsqS
+14.1214 	EXP 	fixation: autoDraw = True
+14.1214 	EXP 	whitesquare: autoDraw = True
+14.1214 	EXP 	whitesquare: autoDraw = False
+14.1395 	DATA 	wsqS
+14.1551 	EXP 	fixation: autoDraw = True
+14.1551 	EXP 	whitesquare: autoDraw = True
+14.1551 	EXP 	whitesquare: autoDraw = False
+14.1730 	DATA 	wsqS
+14.1881 	EXP 	fixation: autoDraw = True
+14.1881 	EXP 	whitesquare: autoDraw = True
+14.1881 	EXP 	whitesquare: autoDraw = False
+14.2060 	DATA 	wsqS
+14.2216 	EXP 	fixation: autoDraw = True
+14.2216 	EXP 	whitesquare: autoDraw = True
+14.2216 	EXP 	whitesquare: autoDraw = False
+14.2394 	DATA 	wsqS
+14.2554 	EXP 	fixation: autoDraw = True
+14.2554 	EXP 	whitesquare: autoDraw = True
+14.2554 	EXP 	whitesquare: autoDraw = False
+14.2727 	DATA 	wsqS
+14.2882 	EXP 	fixation: autoDraw = True
+14.2882 	EXP 	whitesquare: autoDraw = True
+14.2882 	EXP 	whitesquare: autoDraw = False
+14.3060 	DATA 	wsqS
+14.3215 	EXP 	fixation: autoDraw = True
+14.3215 	EXP 	whitesquare: autoDraw = True
+14.3215 	EXP 	whitesquare: autoDraw = False
+14.3394 	DATA 	wsqS
+14.3549 	EXP 	fixation: autoDraw = True
+14.3549 	EXP 	whitesquare: autoDraw = True
+14.3549 	EXP 	whitesquare: autoDraw = False
+14.3727 	DATA 	wsqS
+14.3882 	EXP 	fixation: autoDraw = True
+14.3882 	EXP 	whitesquare: autoDraw = True
+14.3882 	EXP 	whitesquare: autoDraw = False
+14.4062 	DATA 	wsqS
+14.4215 	EXP 	fixation: autoDraw = True
+14.4215 	EXP 	whitesquare: autoDraw = True
+14.4215 	EXP 	whitesquare: autoDraw = False
+14.4394 	DATA 	wsqS
+14.4549 	EXP 	fixation: autoDraw = True
+14.4549 	EXP 	whitesquare: autoDraw = True
+14.4549 	EXP 	whitesquare: autoDraw = False
+14.4728 	DATA 	wsqS
+14.4882 	EXP 	fixation: autoDraw = True
+14.4882 	EXP 	whitesquare: autoDraw = True
+14.4882 	EXP 	whitesquare: autoDraw = False
+14.5060 	DATA 	wsqS
+14.5216 	EXP 	fixation: autoDraw = True
+14.5216 	EXP 	whitesquare: autoDraw = True
+14.5216 	EXP 	whitesquare: autoDraw = False
+14.5393 	DATA 	wsqS
+14.5550 	EXP 	fixation: autoDraw = True
+14.5550 	EXP 	whitesquare: autoDraw = True
+14.5550 	EXP 	whitesquare: autoDraw = False
+14.5728 	DATA 	wsqS
+14.5885 	EXP 	fixation: autoDraw = True
+14.5885 	EXP 	whitesquare: autoDraw = True
+14.5885 	EXP 	whitesquare: autoDraw = False
+14.6062 	DATA 	wsqS
+14.6216 	EXP 	fixation: autoDraw = True
+14.6216 	EXP 	whitesquare: autoDraw = True
+14.6216 	EXP 	whitesquare: autoDraw = False
+14.6394 	DATA 	wsqS
+14.6550 	EXP 	fixation: autoDraw = True
+14.6550 	EXP 	whitesquare: autoDraw = True
+14.6550 	EXP 	whitesquare: autoDraw = False
+14.6729 	DATA 	wsqS
+14.6883 	EXP 	fixation: autoDraw = True
+14.6883 	EXP 	whitesquare: autoDraw = True
+14.6883 	EXP 	whitesquare: autoDraw = False
+14.7062 	DATA 	wsqS
+14.7217 	EXP 	fixation: autoDraw = True
+14.7217 	EXP 	whitesquare: autoDraw = True
+14.7217 	EXP 	whitesquare: autoDraw = False
+14.7396 	DATA 	wsqS
+14.7550 	EXP 	fixation: autoDraw = True
+14.7550 	EXP 	whitesquare: autoDraw = True
+14.7550 	EXP 	whitesquare: autoDraw = False
+14.7728 	DATA 	wsqS
+14.7884 	EXP 	fixation: autoDraw = True
+14.7884 	EXP 	whitesquare: autoDraw = True
+14.7884 	EXP 	whitesquare: autoDraw = False
+14.8063 	DATA 	wsqS
+14.8217 	EXP 	fixation: autoDraw = True
+14.8217 	EXP 	whitesquare: autoDraw = True
+14.8217 	EXP 	whitesquare: autoDraw = False
+14.8396 	DATA 	wsqS
+14.8552 	EXP 	fixation: autoDraw = True
+14.8552 	EXP 	whitesquare: autoDraw = True
+14.8552 	EXP 	whitesquare: autoDraw = False
+14.8736 	DATA 	wsqS
+14.8884 	EXP 	fixation: autoDraw = True
+14.8884 	EXP 	whitesquare: autoDraw = True
+14.8884 	EXP 	whitesquare: autoDraw = False
+14.9062 	DATA 	wsqS
+14.9218 	EXP 	fixation: autoDraw = True
+14.9218 	EXP 	whitesquare: autoDraw = True
+14.9218 	EXP 	whitesquare: autoDraw = False
+14.9397 	DATA 	wsqS
+14.9551 	EXP 	fixation: autoDraw = True
+14.9551 	EXP 	whitesquare: autoDraw = True
+14.9551 	EXP 	whitesquare: autoDraw = False
+14.9730 	DATA 	wsqS
+14.9885 	EXP 	fixation: autoDraw = True
+14.9885 	EXP 	whitesquare: autoDraw = True
+14.9885 	EXP 	whitesquare: autoDraw = False
+15.0067 	DATA 	wsqS
+15.0224 	EXP 	fixation: autoDraw = True
+15.0224 	EXP 	whitesquare: autoDraw = True
+15.0224 	EXP 	whitesquare: autoDraw = False
+15.0397 	DATA 	wsqS
+15.0552 	EXP 	fixation: autoDraw = True
+15.0552 	EXP 	whitesquare: autoDraw = True
+15.0552 	EXP 	whitesquare: autoDraw = False
+15.0729 	DATA 	wsqS
+15.0886 	EXP 	fixation: autoDraw = True
+15.0886 	EXP 	whitesquare: autoDraw = True
+15.0886 	EXP 	whitesquare: autoDraw = False
+15.1064 	DATA 	wsqS
+15.1219 	EXP 	fixation: autoDraw = True
+15.1219 	EXP 	whitesquare: autoDraw = True
+15.1219 	EXP 	whitesquare: autoDraw = False
+15.1397 	DATA 	wsqS
+15.1553 	EXP 	fixation: autoDraw = True
+15.1553 	EXP 	whitesquare: autoDraw = True
+15.1553 	EXP 	whitesquare: autoDraw = False
+15.1730 	DATA 	wsqS
+15.1892 	EXP 	fixation: autoDraw = True
+15.1892 	EXP 	whitesquare: autoDraw = True
+15.1892 	EXP 	whitesquare: autoDraw = False
+15.2064 	DATA 	wsqS
+15.2220 	EXP 	fixation: autoDraw = True
+15.2220 	EXP 	whitesquare: autoDraw = True
+15.2220 	EXP 	whitesquare: autoDraw = False
+15.2398 	DATA 	wsqS
+15.2561 	EXP 	fixation: autoDraw = True
+15.2561 	EXP 	whitesquare: autoDraw = True
+15.2561 	EXP 	whitesquare: autoDraw = False
+15.2735 	DATA 	wsqS
+15.2886 	EXP 	fixation: autoDraw = True
+15.2886 	EXP 	whitesquare: autoDraw = True
+15.2886 	EXP 	whitesquare: autoDraw = False
+15.3064 	DATA 	wsqS
+15.3221 	EXP 	fixation: autoDraw = True
+15.3221 	EXP 	whitesquare: autoDraw = True
+15.3221 	EXP 	whitesquare: autoDraw = False
+15.3397 	DATA 	wsqS
+15.3554 	EXP 	fixation: autoDraw = True
+15.3554 	EXP 	whitesquare: autoDraw = True
+15.3554 	EXP 	whitesquare: autoDraw = False
+15.3732 	DATA 	wsqS
+15.3887 	EXP 	fixation: autoDraw = True
+15.3887 	EXP 	whitesquare: autoDraw = True
+15.3887 	EXP 	whitesquare: autoDraw = False
+15.4065 	DATA 	wsqS
+15.4223 	EXP 	fixation: autoDraw = True
+15.4223 	EXP 	whitesquare: autoDraw = True
+15.4223 	EXP 	whitesquare: autoDraw = False
+15.4398 	DATA 	wsqS
+15.4554 	EXP 	fixation: autoDraw = True
+15.4554 	EXP 	whitesquare: autoDraw = True
+15.4554 	EXP 	whitesquare: autoDraw = False
+15.4733 	DATA 	wsqS
+15.4887 	EXP 	fixation: autoDraw = True
+15.4887 	EXP 	whitesquare: autoDraw = True
+15.4887 	EXP 	whitesquare: autoDraw = False
+15.5066 	DATA 	wsqS
+15.5221 	EXP 	fixation: autoDraw = True
+15.5221 	EXP 	whitesquare: autoDraw = True
+15.5221 	EXP 	whitesquare: autoDraw = False
+15.5401 	DATA 	wsqS
+15.5555 	EXP 	fixation: autoDraw = True
+15.5555 	EXP 	whitesquare: autoDraw = True
+15.5555 	EXP 	whitesquare: autoDraw = False
+15.5733 	DATA 	wsqS
+15.5889 	EXP 	fixation: autoDraw = True
+15.5889 	EXP 	whitesquare: autoDraw = True
+15.5889 	EXP 	whitesquare: autoDraw = False
+15.6065 	DATA 	wsqS
+15.6222 	EXP 	fixation: autoDraw = True
+15.6222 	EXP 	whitesquare: autoDraw = True
+15.6222 	EXP 	whitesquare: autoDraw = False
+15.6400 	DATA 	wsqS
+15.6555 	EXP 	fixation: autoDraw = True
+15.6555 	EXP 	whitesquare: autoDraw = True
+15.6555 	EXP 	whitesquare: autoDraw = False
+15.6733 	DATA 	wsqS
+15.6890 	EXP 	fixation: autoDraw = True
+15.6890 	EXP 	whitesquare: autoDraw = True
+15.6890 	EXP 	whitesquare: autoDraw = False
+15.7066 	DATA 	wsqS
+15.7222 	EXP 	fixation: autoDraw = True
+15.7222 	EXP 	whitesquare: autoDraw = True
+15.7222 	EXP 	whitesquare: autoDraw = False
+15.7401 	DATA 	wsqS
+15.7555 	EXP 	fixation: autoDraw = True
+15.7555 	EXP 	whitesquare: autoDraw = True
+15.7555 	EXP 	whitesquare: autoDraw = False
+15.7734 	DATA 	wsqS
+15.7890 	EXP 	fixation: autoDraw = True
+15.7890 	EXP 	whitesquare: autoDraw = True
+15.7890 	EXP 	whitesquare: autoDraw = False
+15.8069 	DATA 	wsqS
+15.8222 	EXP 	fixation: autoDraw = True
+15.8222 	EXP 	whitesquare: autoDraw = True
+15.8222 	EXP 	whitesquare: autoDraw = False
+15.8400 	DATA 	wsqS
+15.8556 	EXP 	fixation: autoDraw = True
+15.8556 	EXP 	whitesquare: autoDraw = True
+15.8556 	EXP 	whitesquare: autoDraw = False
+15.8734 	DATA 	wsqS
+15.8889 	EXP 	fixation: autoDraw = True
+15.8889 	EXP 	whitesquare: autoDraw = True
+15.8889 	EXP 	whitesquare: autoDraw = False
+15.9067 	DATA 	wsqS
+15.9223 	EXP 	fixation: autoDraw = True
+15.9223 	EXP 	whitesquare: autoDraw = True
+15.9223 	EXP 	whitesquare: autoDraw = False
+15.9405 	DATA 	wsqS
+15.9557 	EXP 	fixation: autoDraw = True
+15.9557 	EXP 	whitesquare: autoDraw = True
+15.9557 	EXP 	whitesquare: autoDraw = False
+15.9735 	DATA 	wsqS
+15.9890 	EXP 	fixation: autoDraw = True
+15.9890 	EXP 	whitesquare: autoDraw = True
+15.9890 	EXP 	whitesquare: autoDraw = False
+16.0068 	DATA 	wsqS
+16.0228 	EXP 	fixation: autoDraw = True
+16.0228 	EXP 	whitesquare: autoDraw = True
+16.0228 	EXP 	whitesquare: autoDraw = False
+16.0402 	DATA 	wsqS
+16.0557 	EXP 	fixation: autoDraw = True
+16.0557 	EXP 	whitesquare: autoDraw = True
+16.0557 	EXP 	whitesquare: autoDraw = False
+16.0735 	DATA 	wsqS
+16.0891 	EXP 	fixation: autoDraw = True
+16.0891 	EXP 	whitesquare: autoDraw = True
+16.0891 	EXP 	whitesquare: autoDraw = False
+16.1068 	DATA 	wsqS
+16.1224 	EXP 	fixation: autoDraw = True
+16.1224 	EXP 	whitesquare: autoDraw = True
+16.1224 	EXP 	whitesquare: autoDraw = False
+16.1402 	DATA 	wsqS
+16.1558 	EXP 	fixation: autoDraw = True
+16.1558 	EXP 	whitesquare: autoDraw = True
+16.1558 	EXP 	whitesquare: autoDraw = False
+16.1736 	DATA 	wsqS
+16.1892 	EXP 	fixation: autoDraw = True
+16.1892 	EXP 	whitesquare: autoDraw = True
+16.1892 	EXP 	whitesquare: autoDraw = False
+16.2072 	DATA 	wsqS
+16.2227 	EXP 	fixation: autoDraw = True
+16.2227 	EXP 	whitesquare: autoDraw = True
+16.2227 	EXP 	whitesquare: autoDraw = False
+16.2404 	DATA 	wsqS
+16.2560 	EXP 	fixation: autoDraw = True
+16.2560 	EXP 	whitesquare: autoDraw = True
+16.2560 	EXP 	whitesquare: autoDraw = False
+16.2737 	DATA 	wsqS
+16.2897 	EXP 	fixation: autoDraw = True
+16.2897 	EXP 	whitesquare: autoDraw = True
+16.2897 	EXP 	whitesquare: autoDraw = False
+16.3078 	DATA 	wsqS
+16.3227 	EXP 	fixation: autoDraw = True
+16.3227 	EXP 	whitesquare: autoDraw = True
+16.3227 	EXP 	whitesquare: autoDraw = False
+16.3406 	DATA 	wsqS
+16.3564 	EXP 	fixation: autoDraw = True
+16.3564 	EXP 	whitesquare: autoDraw = True
+16.3564 	EXP 	whitesquare: autoDraw = False
+16.3737 	DATA 	wsqS
+16.3894 	EXP 	fixation: autoDraw = True
+16.3894 	EXP 	whitesquare: autoDraw = True
+16.3894 	EXP 	whitesquare: autoDraw = False
+16.4071 	DATA 	wsqS
+16.4230 	EXP 	fixation: autoDraw = True
+16.4230 	EXP 	whitesquare: autoDraw = True
+16.4230 	EXP 	whitesquare: autoDraw = False
+16.4404 	DATA 	wsqS
+16.4565 	EXP 	fixation: autoDraw = True
+16.4565 	EXP 	whitesquare: autoDraw = True
+16.4565 	EXP 	whitesquare: autoDraw = False
+16.4741 	DATA 	wsqS
+16.4894 	EXP 	fixation: autoDraw = True
+16.4894 	EXP 	whitesquare: autoDraw = True
+16.4894 	EXP 	whitesquare: autoDraw = False
+16.5080 	DATA 	wsqS
+16.5230 	EXP 	fixation: autoDraw = True
+16.5230 	EXP 	whitesquare: autoDraw = True
+16.5230 	EXP 	whitesquare: autoDraw = False
+16.5407 	DATA 	wsqS
+16.5562 	EXP 	fixation: autoDraw = True
+16.5562 	EXP 	whitesquare: autoDraw = True
+16.5562 	EXP 	whitesquare: autoDraw = False
+16.5740 	DATA 	wsqS
+16.5895 	EXP 	fixation: autoDraw = True
+16.5895 	EXP 	whitesquare: autoDraw = True
+16.5895 	EXP 	whitesquare: autoDraw = False
+16.6072 	DATA 	wsqS
+16.6229 	EXP 	fixation: autoDraw = True
+16.6229 	EXP 	whitesquare: autoDraw = True
+16.6229 	EXP 	whitesquare: autoDraw = False
+16.6414 	DATA 	wsqS
+16.6573 	EXP 	fixation: autoDraw = True
+16.6573 	EXP 	whitesquare: autoDraw = True
+16.6573 	EXP 	whitesquare: autoDraw = False
+16.6749 	DATA 	wsqS
+16.6902 	EXP 	fixation: autoDraw = True
+16.6902 	EXP 	whitesquare: autoDraw = True
+16.6902 	EXP 	whitesquare: autoDraw = False
+16.7081 	DATA 	wsqS
+16.7236 	EXP 	fixation: autoDraw = True
+16.7236 	EXP 	whitesquare: autoDraw = True
+16.7236 	EXP 	whitesquare: autoDraw = False
+16.7417 	DATA 	wsqS
+16.7568 	EXP 	fixation: autoDraw = True
+16.7568 	EXP 	whitesquare: autoDraw = True
+16.7568 	EXP 	whitesquare: autoDraw = False
+16.7747 	DATA 	wsqS
+16.7900 	EXP 	fixation: autoDraw = True
+16.7900 	EXP 	whitesquare: autoDraw = True
+16.7900 	EXP 	whitesquare: autoDraw = False
+16.7905 	EXP 	Set  sound=./sound/open_speak.wav
+16.8068 	EXP 	open_text: autoDraw = False
+16.8068 	EXP 	fixation: autoDraw = False
+16.8068 	EXP 	close_text: autoDraw = True
+17.3927 	DATA 	Keypress: escape
+17.6775 	EXP 	window1: mouseVisible = True

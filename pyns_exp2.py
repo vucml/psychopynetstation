@@ -27,21 +27,21 @@ import decimal
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #                       Custom Variables                          #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+block       = []
 # Switches #
 netstation  = False       #False to run the file locally without connecting to NetStation
 recording   = False       #True starts recording NetStation automatically
 photocell   = True        #True allows use of photocell device
-systemSound = True        #True is recommended // plays sound feedback to open your eyes
 
 # Main task/routine durations in frames #
-dur_description=240   #duration of instruction page
-dur_open=300          #open/blinking eyes
-dur_close=300         #eyes closed
+dur_description=150   #duration of instruction page
+dur_open=120          #open/blinking eyes
+dur_close=120         #eyes closed
 dur_gazL=300          #gaze left
 dur_gazR=300          #gaze right
 dur_gazU=300          #gaze up
 dur_gazD=300          #gaze down
-gaze_pos=0.9          #cross position (proportional to screen)
+gaze_pos=14          #cross position in cm
                       #position will be L(-0.7,0),R(0.7,0) ... so on
 
 # Photocell variables #Default values are based on current lab environment
@@ -53,7 +53,15 @@ square_opac=0.9       #default: 0.9 (range from 0-1)
 
 # Misc #
 frameRate_backup=60   #backup switch for framerate. Default = 60
-dur_beepsound=1.5     #systemSound should be true
+dur_sound=1
+
+blink_per_block=5
+blink_isi=500
+blink_blocks=4
+open_dur=5
+close_dur=5
+gaze_duration=400
+cross_size=0.5
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #                       Experiment Code                           #
@@ -71,7 +79,7 @@ _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Experiment session info
-expName = 'pyns_exp'
+expName = 'pyns_exp2'
 expInfo = {'participant': '', 'session': '001'}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
@@ -154,10 +162,7 @@ fixation = visual.TextStim(win=win, name='fixation',
 
 # Initialize components for Routine "close"
 closeClock = core.Clock()
-if systemSound:
-    tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds. Open your eyes after a beep sound'
-else:
-    tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds and open your eyes'
+tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds. Open your eyes after a sound'
 close_text = visual.TextStim(win=win, name='close_text',
     text=tmp_txt,
     font='Arial',
@@ -170,9 +175,8 @@ blank = visual.TextStim(win=win, name='blank',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
     color='white', colorSpace='rgb', opacity=1,
     depth=-1.0);
-if systemSound:
-    beep = sound.Sound('A', secs=dur_beepsound)
-    beep.setVolume(1)
+sope = sound.Sound('./sound/open_speak.wav')
+sope.setVolume(1)
 
 # Initialize components for Routine "gaze"
 gazeClock = core.Clock()
@@ -182,30 +186,44 @@ gaze_text = visual.TextStim(win=win, name='gaze_text',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
     color='white', colorSpace='rgb', opacity=1,
     depth=0.0);
-left = visual.TextStim(win=win, name='left',
-    text='+',
-    font='Arial',
-    pos=(-gaze_pos, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-1.0);
-right = visual.TextStim(win=win, name='right',
-    text='+\n',
-    font='Arial',
-    pos=(gaze_pos, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-2.0);
-up = visual.TextStim(win=win, name='up',
-    text='+',
-    font='Arial',
-    pos=(0, gaze_pos), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-3.0);
-down = visual.TextStim(win=win, name='down',
-    text='+',
-    font='Arial',
-    pos=(0, -gaze_pos), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-4.0);
+center = visual.ShapeStim(win=win, name='center', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+slef = sound.Sound('./sound/left_speak.wav')
+slef.setVolume(1)
+left = visual.ShapeStim(win=win, name='left', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(-gaze_pos, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+srig = sound.Sound('./sound/right_speak.wav')
+srig.setVolume(1)
+right = visual.ShapeStim(win=win, name='right', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(gaze_pos, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+s_up = sound.Sound('./sound/up_speak.wav')
+s_up.setVolume(1)
+up = visual.ShapeStim(win=win, name='up', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, gaze_pos),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+sdow = sound.Sound('./sound/down_speak.wav')
+sdow.setVolume(1)
+down = visual.ShapeStim(win=win, name='down', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, -gaze_pos),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
 
 # Initialize components for Routine "end"
 endClock = core.Clock()
@@ -496,13 +514,9 @@ closeClock.reset()  # clock
 frameN = -1
 continueRoutine = True
 # update component parameters for each repeat
-if systemSound:
-    beep.setSound('A', secs=5)
+sope.setSound('./sound/open_speak.wav')
 # keep track of which components have finished
-if systemSound:
-    closeComponents = [close_text, blank, beep]
-else:
-    closeComponents = [close_text, blank]
+closeComponents = [close_text, blank, sope]
 
 for thisComponent in closeComponents:
     if hasattr(thisComponent, 'status'):
@@ -543,21 +557,20 @@ while continueRoutine:
         whitesquare.setAutoDraw(False)
     if blank.status == STARTED and frameN >= (blank.frameNStart + dur_close):
         blank.setAutoDraw(False)
-    # start/stop beep
-    if systemSound:
-        if frameN >= (dur_description+dur_close) and beep.status == NOT_STARTED:
-            ### NetStation ###
-            if netstation:
-                ns.sync()
-                logging.data('beep' + ' | total frame duration: ' + str(frameN))
-                ns.send_event(key='beep', timestamp=None,pad=False)
+    # start/stop sope
+    if frameN >= (dur_description+dur_close) and sope.status == NOT_STARTED:
+        ### NetStation ###
+        if netstation:
+            ns.sync()
+            logging.data('sope' + ' | total frame duration: ' + str(frameN))
+            ns.send_event(key='sope', timestamp=None,pad=False)
 
-            # keep track of start time/frame for later
-            beep.tStart = t
-            beep.frameNStart = frameN  # exact frame index
-            beep.play()  # start the sound (it finishes automatically)
-            core.wait(dur_beepsound)
-            beep.stop()
+        # keep track of start time/frame for later
+        sope.tStart = t
+        sope.frameNStart = frameN  # exact frame index
+        sope.play()  # start the sound (it finishes automatically)
+        core.wait(dur_sound)
+        sope.stop()
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine
         break
@@ -592,9 +605,16 @@ t = 0
 gazeClock.reset()  # clock
 frameN = -1
 continueRoutine = True
+
+slef.setSound('./sound/left_speak.wav')
+srig.setSound('./sound/right_speak.wav')
+s_up.setSound('./sound/up_speak.wav')
+sdow.setSound('./sound/down_speak.wav')
+
 # update component parameters for each repeat
 # keep track of which components have finished
-gazeComponents = [gaze_text, left, right, up, down]
+gazeComponents = [gaze_text, center, left, right, up, down, slef, srig, s_up, sdow]
+# gazeComponents = [gaze_text, center, slef, srig, s_up, sdow]
 for thisComponent in gazeComponents:
     if hasattr(thisComponent, 'status'):
         thisComponent.status = NOT_STARTED
@@ -618,13 +638,13 @@ while continueRoutine:
 
     # *left* updates
     if frameN >= dur_description and left.status == NOT_STARTED:
-        ### NetStation ###
+    ### NetStation ###
         if netstation:
             ns.sync()
             logging.data('gazL' + ' | total frame duration: ' + str(frameN))
             ns.send_event(key='gazL', timestamp=None,pad=False)
 
-        # keep track of start time/frame for later
+    # keep track of start time/frame for later
         left.tStart = t
         left.frameNStart = frameN  # exact frame index
         left.setAutoDraw(True)
@@ -636,65 +656,93 @@ while continueRoutine:
     if left.status == STARTED and frameN >= (left.frameNStart + dur_gazL):
         left.setAutoDraw(False)
 
-    # *right* updates
-    if frameN >= (dur_description+dur_gazL) and right.status == NOT_STARTED:
+    # *center* updates
+    if frameN >= dur_description+dur_gazL and center == NOT_STARTED:
         ### NetStation ###
         if netstation:
             ns.sync()
-            logging.data('gazR' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazR', timestamp=None,pad=False)
+            logging.data('gazL' + ' | total frame duration: ' + str(frameN))
+            ns.send_event(key='gazL', timestamp=None,pad=False)
 
         # keep track of start time/frame for later
-        right.tStart = t
-        right.frameNStart = frameN  # exact frame index
-        right.setAutoDraw(True)
+        center.tStart = t
+        center.frameNStart = frameN  # exact frame index
+        center.setAutoDraw(True)
+        # left.setAutoDraw(True)
+        # right.setAutoDraw(True)
+        # up.setAutoDraw(True)
+        # down.setAutoDraw(True)
         if photocell:
             whitesquare.setAutoDraw(True)
             logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if right.status == STARTED and frameN >= (right.frameNStart + dur_gazR):
+    # if photocell and (frameN >= dur_description+dur_whitesquare):
+    #     whitesquare.setAutoDraw(False)
+    if center.status == STARTED and frameN >= (left.frameNStart + gaze_duration):
+        center.setAutoDraw(False)
+        left.setAutoDraw(False)
         right.setAutoDraw(False)
-
-    # *up* updates
-    if frameN >= (dur_description+dur_gazL+dur_gazR) and up.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazU' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazU', timestamp=None,pad=False)
-
-        # keep track of start time/frame for later
-        up.tStart = t
-        up.frameNStart = frameN  # exact frame index
-        up.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if up.status == STARTED and frameN >= (up.frameNStart + dur_gazU):
         up.setAutoDraw(False)
-
-    # *down* updates
-    if frameN >= (dur_description+dur_gazL+dur_gazR+dur_gazU) and down.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazD' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazD', timestamp=None,pad=False)
-
-        # keep track of start time/frame for later
-        down.tStart = t
-        down.frameNStart = frameN  # exact frame index
-        down.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_gazD+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if down.status == STARTED and frameN >= (down.frameNStart + dur_gazD):
         down.setAutoDraw(False)
+
+    # # *right* updates
+    # if frameN >= (dur_description+dur_gazL) and right.status == NOT_STARTED:
+    #     ### NetStation ###
+    #     if netstation:
+    #         ns.sync()
+    #         logging.data('gazR' + ' | total frame duration: ' + str(frameN))
+    #         ns.send_event(key='gazR', timestamp=None,pad=False)
+    #
+    #     # keep track of start time/frame for later
+    #     right.tStart = t
+    #     right.frameNStart = frameN  # exact frame index
+    #     right.setAutoDraw(True)
+    #     if photocell:
+    #         whitesquare.setAutoDraw(True)
+    #         logging.data('wsqS')
+    # if photocell and (frameN >= dur_description+dur_gazL+dur_whitesquare):
+    #     whitesquare.setAutoDraw(False)
+    # if right.status == STARTED and frameN >= (right.frameNStart + dur_gazR):
+    #     right.setAutoDraw(False)
+    #
+    # # *up* updates
+    # if frameN >= (dur_description+dur_gazL+dur_gazR) and up.status == NOT_STARTED:
+    #     ### NetStation ###
+    #     if netstation:
+    #         ns.sync()
+    #         logging.data('gazU' + ' | total frame duration: ' + str(frameN))
+    #         ns.send_event(key='gazU', timestamp=None,pad=False)
+    #
+    #     # keep track of start time/frame for later
+    #     up.tStart = t
+    #     up.frameNStart = frameN  # exact frame index
+    #     up.setAutoDraw(True)
+    #     if photocell:
+    #         whitesquare.setAutoDraw(True)
+    #         logging.data('wsqS')
+    # if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_whitesquare):
+    #     whitesquare.setAutoDraw(False)
+    # if up.status == STARTED and frameN >= (up.frameNStart + dur_gazU):
+    #     up.setAutoDraw(False)
+    #
+    # # *down* updates
+    # if frameN >= (dur_description+dur_gazL+dur_gazR+dur_gazU) and down.status == NOT_STARTED:
+    #     ### NetStation ###
+    #     if netstation:
+    #         ns.sync()
+    #         logging.data('gazD' + ' | total frame duration: ' + str(frameN))
+    #         ns.send_event(key='gazD', timestamp=None,pad=False)
+    #
+    #     # keep track of start time/frame for later
+    #     down.tStart = t
+    #     down.frameNStart = frameN  # exact frame index
+    #     down.setAutoDraw(True)
+    #     if photocell:
+    #         whitesquare.setAutoDraw(True)
+    #         logging.data('wsqS')
+    # if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_gazD+dur_whitesquare):
+    #     whitesquare.setAutoDraw(False)
+    # if down.status == STARTED and frameN >= (down.frameNStart + dur_gazD):
+    #     down.setAutoDraw(False)
 
     # check if all components have finished
     if not continueRoutine:  # a component has requested a forced-end of Routine

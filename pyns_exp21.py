@@ -27,21 +27,25 @@ import decimal
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #                       Custom Variables                          #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# 1=open
+# 2=close
+# 3=gaze
+seq=[1,1,1,2,2,2,3,3,3]
+shuffle(seq)
 # Switches #
 netstation  = False       #False to run the file locally without connecting to NetStation
 recording   = False       #True starts recording NetStation automatically
 photocell   = True        #True allows use of photocell device
-systemSound = True        #True is recommended // plays sound feedback to open your eyes
 
 # Main task/routine durations in frames #
-dur_description=240   #duration of instruction page
-dur_open=300          #open/blinking eyes
-dur_close=300         #eyes closed
+dur_description=150   #duration of instruction page
+dur_open=120          #open/blinking eyes
+dur_close=120         #eyes closed
 dur_gazL=300          #gaze left
 dur_gazR=300          #gaze right
 dur_gazU=300          #gaze up
 dur_gazD=300          #gaze down
-gaze_pos=0.9          #cross position (proportional to screen)
+gaze_pos=10          #cross position in cm
                       #position will be L(-0.7,0),R(0.7,0) ... so on
 
 # Photocell variables #Default values are based on current lab environment
@@ -53,7 +57,20 @@ square_opac=0.9       #default: 0.9 (range from 0-1)
 
 # Misc #
 frameRate_backup=60   #backup switch for framerate. Default = 60
-dur_beepsound=1.5     #systemSound should be true
+dur_sound=1
+
+###
+blink_per_block=5
+blink_isi=500
+blink_blocks=4
+# blink_duration=dur_description+
+cross_size=0.5
+open_dur=5
+close_dur=5
+gaze_duration=400
+gaze_per_trial=2
+# dur_gaze=((gaze_isi)+(4+gaze_isi)*gaze_per_trial)*60
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #                       Experiment Code                           #
@@ -71,7 +88,7 @@ _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Experiment session info
-expName = 'pyns_exp'
+expName = 'pyns_exp2'
 expInfo = {'participant': '', 'session': '001'}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
@@ -154,10 +171,7 @@ fixation = visual.TextStim(win=win, name='fixation',
 
 # Initialize components for Routine "close"
 closeClock = core.Clock()
-if systemSound:
-    tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds. Open your eyes after a beep sound'
-else:
-    tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds and open your eyes'
+tmp_txt='Keep your eyes closed for ' + str(round(dur_close/expInfo['frameRate'],0)) + ' seconds. Open your eyes after a sound'
 close_text = visual.TextStim(win=win, name='close_text',
     text=tmp_txt,
     font='Arial',
@@ -170,9 +184,8 @@ blank = visual.TextStim(win=win, name='blank',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
     color='white', colorSpace='rgb', opacity=1,
     depth=-1.0);
-if systemSound:
-    beep = sound.Sound('A', secs=dur_beepsound)
-    beep.setVolume(1)
+sope = sound.Sound('./sound/open_speak.wav')
+sope.setVolume(1)
 
 # Initialize components for Routine "gaze"
 gazeClock = core.Clock()
@@ -182,30 +195,44 @@ gaze_text = visual.TextStim(win=win, name='gaze_text',
     pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
     color='white', colorSpace='rgb', opacity=1,
     depth=0.0);
-left = visual.TextStim(win=win, name='left',
-    text='+',
-    font='Arial',
-    pos=(-gaze_pos, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-1.0);
-right = visual.TextStim(win=win, name='right',
-    text='+\n',
-    font='Arial',
-    pos=(gaze_pos, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-2.0);
-up = visual.TextStim(win=win, name='up',
-    text='+',
-    font='Arial',
-    pos=(0, gaze_pos), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-3.0);
-down = visual.TextStim(win=win, name='down',
-    text='+',
-    font='Arial',
-    pos=(0, -gaze_pos), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-4.0);
+center = visual.ShapeStim(win=win, name='center', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+slef = sound.Sound('./sound/left_speak.wav')
+slef.setVolume(1)
+left = visual.ShapeStim(win=win, name='left', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(-gaze_pos, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+srig = sound.Sound('./sound/right_speak.wav')
+srig.setVolume(1)
+right = visual.ShapeStim(win=win, name='right', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(gaze_pos, 0),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+s_up = sound.Sound('./sound/up_speak.wav')
+s_up.setVolume(1)
+up = visual.ShapeStim(win=win, name='up', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, gaze_pos),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
+sdow = sound.Sound('./sound/down_speak.wav')
+sdow.setVolume(1)
+down = visual.ShapeStim(win=win, name='down', units='cm',vertices='cross',
+    size=(cross_size, cross_size),
+    ori=0, pos=(0, -gaze_pos),
+    lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
+    fillColor=[1,1,1], fillColorSpace='rgb',
+    opacity=1, depth=0.0, interpolate=True)
 
 # Initialize components for Routine "end"
 endClock = core.Clock()
@@ -309,7 +336,6 @@ thisExp.nextEntry()
 # the Routine "intro" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
-
 # ------Prepare to start Routine "intro"-------
 t = 0
 introClock.reset()  # clock
@@ -411,320 +437,170 @@ if netstation:
     logging.data('intE' + ' | total frame duration: ' + str(frameN))
     ns.send_event(key='intE', timestamp=None,pad=False)
 
+for trial in range(len(seq)):
 # ------Prepare to start Routine "open"-------
-t = 0
-openClock.reset()  # clock
-frameN = -1
-continueRoutine = True
-# update component parameters for each repeat
-# keep track of which components have finished
-openComponents = [open_text, fixation]
-for thisComponent in openComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
+    if seq[trial] == 1:
+        t = 0
+        openClock.reset()  # clock
+        frameN = -1
 
-# -------Start Routine "open"-------
-while continueRoutine:
-    # get current time
-    t = openClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
+        # -------Start Routine "open"-------
+        for frameN in range(dur_description+dur_open):
+            # get current time
+            t = openClock.getTime()
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            win.flip()
+            if frameN <= dur_description:
+                open_text.draw()
 
-    # *open_text* updates
-    if t >= 0.0 and open_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        open_text.tStart = t
-        open_text.frameNStart = frameN  # exact frame index
-        open_text.setAutoDraw(True)
-    if open_text.status == STARTED and frameN >= (open_text.frameNStart + dur_description):
-        open_text.setAutoDraw(False)
+                # *fixation* updates
+            if frameN >= dur_description:
+                fixation.draw()
+                ### NetStation ###
+                if netstation:
+                    ns.sync()
+                    logging.data('opeS' + ' | total frame duration: ' + str(frameN))
+                    ns.send_event(key='opeS', timestamp=None,pad=False)
+            ### Photocell ###
+                if photocell:
+                    whitesquare.setAutoDraw(True)
+                    logging.data('wsqS')
+            if photocell and (frameN >= dur_description+dur_whitesquare):
+                whitesquare.setAutoDraw(False)
 
-    # *fixation* updates
-    if frameN >= dur_description and fixation.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('opeS' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='opeS', timestamp=None,pad=False)
+        if endExpNow or event.getKeys(keyList=["escape"]):
+            core.quit()
 
-        # keep track of start time/frame for later
-        fixation.tStart = t
-        fixation.frameNStart = frameN  # exact frame index
-        fixation.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-
-    if fixation.status == STARTED and frameN >= (fixation.frameNStart + dur_open):
-        fixation.setAutoDraw(False)
-
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in openComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "open"-------
-for thisComponent in openComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-# the Routine "open" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
+    routineTimer.reset()
 ### NetStation ###
-if netstation:
-    ns.sync()
-    logging.data('opeE' + ' | total frame duration: ' + str(frameN))
-    ns.send_event(key='opeE', timestamp=None,pad=False)
+    if netstation:
+        ns.sync()
+        logging.data('opeE' + ' | total frame duration: ' + str(frameN))
+        ns.send_event(key='opeE', timestamp=None,pad=False)
 
 # ------Prepare to start Routine "close"-------
-t = 0
-closeClock.reset()  # clock
-frameN = -1
-continueRoutine = True
+    if seq[trial] == 2:
+        t = 0
+        closeClock.reset()  # clock
+        frameN = -1
 # update component parameters for each repeat
-if systemSound:
-    beep.setSound('A', secs=5)
+        sope.setSound('./sound/open_speak.wav')
 # keep track of which components have finished
-if systemSound:
-    closeComponents = [close_text, blank, beep]
-else:
-    closeComponents = [close_text, blank]
-
-for thisComponent in closeComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
 
 # -------Start Routine "close"-------
-while continueRoutine:
+        for frameN in range(dur_description+dur_open):
     # get current time
-    t = closeClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
+            t = closeClock.getTime()
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            win.flip()
 
-    # *close_text* updates
-    if frameN >= 0.0 and close_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        close_text.tStart = t
-        close_text.frameNStart = frameN  # exact frame index
-        close_text.setAutoDraw(True)
-    if close_text.status == STARTED and frameN >= (close_text.frameNStart + dur_description):
-        close_text.setAutoDraw(False)
+            if frameN <= dur_description:
+                close_text.draw()
+            if frameN >= dur_description:
+                blank.draw()
 
-    # *blank* updates
-    if frameN >= dur_description and blank.status == NOT_STARTED:
+                if netstation:
+                    ns.sync()
+                    logging.data('cloS' + ' | total frame duration: ' + str(frameN))
+                    ns.send_event(key='cloS', timestamp=None,pad=False)
+        ### Photocell ###
+                if photocell:
+                    whitesquare.setAutoDraw(True)
+                    logging.data('wsqS')
+            if photocell and (frameN >= dur_description+dur_whitesquare):
+                whitesquare.setAutoDraw(False)
+
+    # start/stop sope
+            if frameN >= (dur_description+dur_close):
+                sope.play()
         ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('cloS' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='cloS', timestamp=None,pad=False)
+                if netstation:
+                    ns.sync()
+                    logging.data('sope' + ' | total frame duration: ' + str(frameN))
+                    ns.send_event(key='sope', timestamp=None,pad=False)
+                core.wait(dur_sound)
 
-        # keep track of start time/frame for later
-        blank.tStart = t
-        blank.frameNStart = frameN  # exact frame index
-        blank.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if blank.status == STARTED and frameN >= (blank.frameNStart + dur_close):
-        blank.setAutoDraw(False)
-    # start/stop beep
-    if systemSound:
-        if frameN >= (dur_description+dur_close) and beep.status == NOT_STARTED:
-            ### NetStation ###
-            if netstation:
-                ns.sync()
-                logging.data('beep' + ' | total frame duration: ' + str(frameN))
-                ns.send_event(key='beep', timestamp=None,pad=False)
+            if endExpNow or event.getKeys(keyList=["escape"]):
+                core.quit()
 
-            # keep track of start time/frame for later
-            beep.tStart = t
-            beep.frameNStart = frameN  # exact frame index
-            beep.play()  # start the sound (it finishes automatically)
-            core.wait(dur_beepsound)
-            beep.stop()
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in closeComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "close"-------
-for thisComponent in closeComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-
-# the Routine "close" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
+        routineTimer.reset()
 
 ### NetStation ###
-if netstation:
-    ns.sync()
-    logging.data('cloE' + ' | total frame duration: ' + str(frameN))
-    ns.send_event(key='cloE', timestamp=None,pad=False)
+        if netstation:
+            ns.sync()
+            logging.data('cloE' + ' | total frame duration: ' + str(frameN))
+            ns.send_event(key='cloE', timestamp=None,pad=False)
+
 
 # ------Prepare to start Routine "gaze"-------
-t = 0
-gazeClock.reset()  # clock
-frameN = -1
-continueRoutine = True
-# update component parameters for each repeat
-# keep track of which components have finished
-gazeComponents = [gaze_text, left, right, up, down]
-for thisComponent in gazeComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
+    if seq[trial] == 3:
+        t = 0
+        gazeClock.reset()  # clock
+        frameN = -1
 
+        slef.setSound('./sound/left_speak.wav')
+        srig.setSound('./sound/right_speak.wav')
+        s_up.setSound('./sound/up_speak.wav')
+        sdow.setSound('./sound/down_speak.wav')
+
+        gaze_order=['l','r','u','d']*gaze_per_trial
+        shuffle(gaze_order)
 # -------Start Routine "gaze"-------
+        temp = dur_description+gaze_duration
+        gaze_isi = int(temp/len(gaze_order)+1)
+        i = 1
+        for frameN in range(dur_description+gaze_duration):
+            # get current time
+            t = gazeClock.getTime()
+            frameN = frameN + 1
+            win.flip()
 
-while continueRoutine:
-    # get current time
-    t = gazeClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
+            if frameN <= dur_description:
+                gaze_text.draw()
 
-    # *gaze_text* updates
-    if frameN >= 0.0 and gaze_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        gaze_text.tStart = t
-        gaze_text.frameNStart = frameN  # exact frame index
-        gaze_text.setAutoDraw(True)
-    if gaze_text.status == STARTED and frameN >= (gaze_text.frameNStart + dur_description):
-        gaze_text.setAutoDraw(False)
+            if frameN > dur_description:
+                center.draw()
+                left.draw()
+                right.draw()
+                up.draw()
+                down.draw()
 
-    # *left* updates
-    if frameN >= dur_description and left.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazL' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazL', timestamp=None,pad=False)
+            for i in range(len(gaze_order)+1):
+                if (frameN == dur_description + i * gaze_isi):
+                    if gaze_order[i]=='l':
+                        slef.play()
+                        if netstation:
+                            ns.sync()
+                            logging.data('slef')
+                            ns.send_event(key='slef', timestamp=None,pad=False)
+                    if gaze_order[i]=='r':
+                        srig.play()
+                        if netstation:
+                            ns.sync()
+                            logging.data('srig')
+                            ns.send_event(key='srig', timestamp=None,pad=False)
+                    if gaze_order[i]=='u':
+                        s_up.play()
+                        if netstation:
+                            ns.sync()
+                            logging.data('s_up')
+                            ns.send_event(key='s_up', timestamp=None,pad=False)
+                    if gaze_order[i]=='d':
+                        sdow.play()
+                        if netstation:
+                            ns.sync()
+                            logging.data('sdow')
+                            ns.send_event(key='sdow', timestamp=None,pad=False)
 
-        # keep track of start time/frame for later
-        left.tStart = t
-        left.frameNStart = frameN  # exact frame index
-        left.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if left.status == STARTED and frameN >= (left.frameNStart + dur_gazL):
-        left.setAutoDraw(False)
-
-    # *right* updates
-    if frameN >= (dur_description+dur_gazL) and right.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazR' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazR', timestamp=None,pad=False)
-
-        # keep track of start time/frame for later
-        right.tStart = t
-        right.frameNStart = frameN  # exact frame index
-        right.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if right.status == STARTED and frameN >= (right.frameNStart + dur_gazR):
-        right.setAutoDraw(False)
-
-    # *up* updates
-    if frameN >= (dur_description+dur_gazL+dur_gazR) and up.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazU' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazU', timestamp=None,pad=False)
-
-        # keep track of start time/frame for later
-        up.tStart = t
-        up.frameNStart = frameN  # exact frame index
-        up.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if up.status == STARTED and frameN >= (up.frameNStart + dur_gazU):
-        up.setAutoDraw(False)
-
-    # *down* updates
-    if frameN >= (dur_description+dur_gazL+dur_gazR+dur_gazU) and down.status == NOT_STARTED:
-        ### NetStation ###
-        if netstation:
-            ns.sync()
-            logging.data('gazD' + ' | total frame duration: ' + str(frameN))
-            ns.send_event(key='gazD', timestamp=None,pad=False)
-
-        # keep track of start time/frame for later
-        down.tStart = t
-        down.frameNStart = frameN  # exact frame index
-        down.setAutoDraw(True)
-        if photocell:
-            whitesquare.setAutoDraw(True)
-            logging.data('wsqS')
-    if photocell and (frameN >= dur_description+dur_gazL+dur_gazR+dur_gazD+dur_whitesquare):
-        whitesquare.setAutoDraw(False)
-    if down.status == STARTED and frameN >= (down.frameNStart + dur_gazD):
-        down.setAutoDraw(False)
-
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in gazeComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "gaze"-------
-for thisComponent in gazeComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-# the Routine "gaze" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
+                    if endExpNow or event.getKeys(keyList=["escape"]):
+                        core.quit()
+        routineTimer.reset()
 
 # NetStation
-if netstation:
-    ns.sync()
-    logging.data('gazE' + ' | total frame duration: ' + str(frameN))
-    ns.send_event(key='gazE', timestamp=None,pad=False)
+        if netstation:
+            ns.sync()
+            logging.data('gazE' + ' | total frame duration: ' + str(frameN))
+            ns.send_event(key='gazE', timestamp=None,pad=False)
 
 # ------Prepare to start Routine "end"-------
 t = 0
