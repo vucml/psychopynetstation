@@ -1,6 +1,6 @@
-# PsychoPyNetStation (PyNs) 
+# psychopynetstation (pyns) 
 
-**PsychoPyNetStation** provides basic experiment and data processing scripts that can be run prior to running the actual EEG experiments. The scripts help configure basic lab setups, such as photocell device and digital input connection, test for connectivity, and measure timing diffrence. With the data logs resulted from the experiment script (pyns_exp.py), pyns_run.py first cleans data. Then, it measures the relative timing difference between PsychoPy and NetStation by comparing the timestamps of stimuli onset in PsychoPy and event labels in NetStation. 
+**psychopynetstation** provides basic experiment and data processing scripts that can be run prior to running the actual EEG experiments. The scripts help configure basic lab setups, such as photocell device and digital input connection, test for connectivity, and measure timing diffrence. With the data logs resulted from the experiment script (pyns_exp.py), pyns_run.py first cleans data. Then, it measures the relative timing difference between PsychoPy and NetStation by comparing the timestamps of stimuli onset in PsychoPy and event labels in NetStation. 
 
 For full documentation and details, please refer to Wiki, or docstring of each function (ie. help(function name)). The default values and setup are all currently configured to lab environment. The experiment can be run on local device without NetStation connection as well.
 
