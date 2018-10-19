@@ -29,7 +29,7 @@ import decimal
 # 1=blinks
 # 2=open/close
 # 3=gaze
-seq=[1,2,3]
+seq=[1,1,1,1,2,2,2,3,3]
 shuffle(seq)
 # Switches #
 netstation  = False       #False to run the file locally without connecting to NetStation
@@ -37,23 +37,23 @@ recording   = False       #True starts recording NetStation automatically
 photocell   = True        #True allows use of photocell device
 
 # Duration of blank transition
-dur_iti=90
+dur_iti=10
 # 'blink' custom var:
-blink_per_block=3
+blink_per_block=4
 blink_isi=120
 # 'openclose' custom var:
 openclose_per_block=2
 openclose_isi=120
 # 'gaze' custom var:
 gaze_per_block=2     #1=look left, right, up, down one each
-gaze_isi=120
+gaze_isi=90
 
 # Cross size/position
 cross_size=0.5
 gaze_horizontal_pos=13        #cross position in cm
 gaze_vertical_pos=10          #cross position in cm
 # Photocell variables #Default values are based on current lab environment
-dur_whitesquare=0.001 #Minimize duration of photocell square blinking
+dur_whitesquare=1 #Minimize duration of photocell square blinking
 square_width=0.5      #default: 0.5 cm
 square_height=0.5     #default: 0.5 cm
 square_pos=(14.9,11.2)#default: (14.9,11.2)
@@ -86,7 +86,7 @@ _thisDir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(_thisDir)
 
 # Experiment session info
-expName = 'pyns_exp2'
+expName = 'pyns_expv2'
 expInfo = {'participant': '', 'session': '001'}
 dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
 if dlg.OK == False:
@@ -208,6 +208,7 @@ esc = visual.TextStim(win=win, name='esc',
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine
 
+# helper functions:
 def show_screen():
     center.setAutoDraw(True)
     left.setAutoDraw(True)
@@ -396,7 +397,6 @@ if netstation:
     logging.data('intE' + ' | frame count: ' + str(frameN))
     ns.send_event(key='intE', timestamp=None,pad=False)
 
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #                       Experiment Loop                           #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -407,8 +407,11 @@ for trial in range(len(seq)):
         openClock.reset()
         frameN = -1
         sclo.setSound('./sound/blink_speak.wav')
+        blink_interval=[]
+        pc_start=[]
+        pc_end=[]
 
-        if netstation: ### NetStation ###
+        if netstation:
             ns.sync()
             logging.data('bliS' + ' | frame count: ' + str(frameN))
             ns.send_event(key='bliS', timestamp=None,pad=False)
@@ -426,12 +429,17 @@ for trial in range(len(seq)):
                         ns.sync()
                         logging.data('sbli' + ' | frame count: ' + str(frameN))
                         ns.send_event(key='sbli', timestamp=None,pad=False)
-                    if photocell:
+                    blink_interval.append(frameN)
+                    pc_start=[x+20 for x in blink_interval]
+                    pc_end=[x+dur_whitesquare for x in pc_start]
+            if photocell:
+                for i in range(len(pc_start)):
+                    if frameN == pc_start[i]:
                         whitesquare.setAutoDraw(True)
                         logging.data('wsqS')
-
-            if photocell and (frameN >= dur_whitesquare):
-                whitesquare.setAutoDraw(False)
+                for i in range(len(pc_end)):
+                    if frameN == pc_end[i]:
+                        whitesquare.setAutoDraw(False)
             if dur_blink-frameN < dur_iti:
                 hide_screen()
 
@@ -450,6 +458,10 @@ for trial in range(len(seq)):
         frameN = -1
         sclo.setSound('./sound/close_speak.wav')
         sope.setSound('./sound/open_speak.wav')
+        oc_interval=[]
+        pc_start=[]
+        pc_end=[]
+
         if netstation:
             ns.sync()
             logging.data('oc_S' + ' | frame count: ' + str(frameN))
@@ -465,9 +477,6 @@ for trial in range(len(seq)):
                 if frameN == openclose_isi * i + (60 * (i - 1)):
                     if i % 2 != 0: # check for odd seq
                         sclo.play()
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
                         if netstation:
                             ns.sync()
                             logging.data('sclo' + ' | frame count: ' + str(frameN))
@@ -478,12 +487,17 @@ for trial in range(len(seq)):
                             ns.sync()
                             logging.data('sope' + ' | frame count: ' + str(frameN))
                             ns.send_event(key='sope', timestamp=None,pad=False)
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
-
-            if photocell and (frameN >= dur_whitesquare):
-                whitesquare.setAutoDraw(False)
+                    oc_interval.append(frameN)
+                    pc_start=[x+30 for x in oc_interval]
+                    pc_end=[x+dur_whitesquare for x in pc_start]
+            if photocell:
+                for i in range(len(pc_start)):
+                    if frameN == pc_start[i]:
+                        whitesquare.setAutoDraw(True)
+                        logging.data('wsqS')
+                for i in range(len(pc_end)):
+                    if frameN == pc_end[i]:
+                        whitesquare.setAutoDraw(False)
             if dur_openclose-frameN < dur_iti:
                 hide_screen()
 
@@ -505,6 +519,10 @@ for trial in range(len(seq)):
         srig.setSound('./sound/right_speak.wav')
         s_up.setSound('./sound/up_speak.wav')
         sdow.setSound('./sound/down_speak.wav')
+        gaze_interval=[]
+        pc_start=[]
+        pc_end=[]
+
         if netstation:
             ns.sync()
             logging.data('gazS' + ' | frame count: ' + str(frameN))
@@ -515,7 +533,6 @@ for trial in range(len(seq)):
             frameN = frameN + 1
             win.flip()
             show_screen()
-
             for i in range(1,len(gaze_seq)):
                 if frameN == gaze_isi * i + (60 * (i - 1)):
                     if gaze_seq[i]=='l':
@@ -524,38 +541,35 @@ for trial in range(len(seq)):
                             ns.sync()
                             logging.data('slef')
                             ns.send_event(key='slef', timestamp=None,pad=False)
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
                     if gaze_seq[i]=='r':
                         srig.play()
                         if netstation:
                             ns.sync()
                             logging.data('srig')
                             ns.send_event(key='srig', timestamp=None,pad=False)
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
                     if gaze_seq[i]=='u':
                         s_up.play()
                         if netstation:
                             ns.sync()
                             logging.data('s_up')
                             ns.send_event(key='s_up', timestamp=None,pad=False)
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
                     if gaze_seq[i]=='d':
                         sdow.play()
                         if netstation:
                             ns.sync()
                             logging.data('sdow')
                             ns.send_event(key='sdow', timestamp=None,pad=False)
-                        if photocell:
-                            whitesquare.setAutoDraw(True)
-                            logging.data('wsqS')
-            if photocell and (frameN >= dur_whitesquare):
-                whitesquare.setAutoDraw(False)
+                    gaze_interval.append(frameN)
+                    pc_start=[x+20 for x in gaze_interval]
+                    pc_end=[x+dur_whitesquare for x in pc_start]
+            if photocell:
+                for i in range(len(pc_start)):
+                    if frameN == pc_start[i]:
+                        whitesquare.setAutoDraw(True)
+                        logging.data('wsqS')
+                for i in range(len(pc_end)):
+                    if frameN == pc_end[i]:
+                        whitesquare.setAutoDraw(False)
             if dur_gaze-frameN < dur_iti:
                 hide_screen()
 
