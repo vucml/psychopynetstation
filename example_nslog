@@ -1,0 +1,172 @@
+Recording 42
+Time Mode: Relative Time
+Code	Label	Type	Track	Onset	Duration
+intS		Stimulus Event	ECI TCP/IP 55513	_00:00:00.207	_00:00:00.001	
+sync	Amp time	Stimulus Event	Calibration	_00:00:00.995	_00:00:00.001	
+intE		Stimulus Event	ECI TCP/IP 55513	_00:00:04.901	_00:00:00.001	
+bliS		Stimulus Event	ECI TCP/IP 55513	_00:00:04.917	_00:00:00.001	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:00:06.912	_00:00:00.001	
+DIN3		Stimulus Event	DIN 1	_00:00:07.284	_00:00:00.001	gidx	6	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:00:09.911	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:10.286	_00:00:00.001	gidx	7	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:00:12.912	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:13.287	_00:00:00.001	gidx	8	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:00:15.912	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:16.289	_00:00:00.001	gidx	9	
+bliE		Stimulus Event	ECI TCP/IP 55513	_00:00:19.002	_00:00:00.001	 	 	
+gazS		Stimulus Event	ECI TCP/IP 55513	_00:00:19.016	_00:00:00.001	 	 	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:00:20.516	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:20.892	_00:00:00.001	gidx	10	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:00:23.007	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:23.393	_00:00:00.001	gidx	11	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:00:25.511	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:25.894	_00:00:00.001	gidx	12	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:00:28.016	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:28.396	_00:00:00.001	gidx	13	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:00:30.521	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:30.897	_00:00:00.001	gidx	14	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:00:33.011	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:33.398	_00:00:00.001	gidx	15	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:00:35.516	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:35.900	_00:00:00.001	gidx	16	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:00:38.022	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:38.401	_00:00:00.001	gidx	17	
+gazE		Stimulus Event	ECI TCP/IP 55513	_00:00:43.106	_00:00:00.001	 	 	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:00:43.107	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:00:45.102	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:45.655	_00:00:00.001	gidx	18	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:00:48.101	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:48.657	_00:00:00.001	gidx	19	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:00:51.101	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:51.658	_00:00:00.001	gidx	20	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:00:54.116	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:54.660	_00:00:00.001	gidx	21	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:00:57.266	_00:00:00.001	 	 	
+bliS		Stimulus Event	ECI TCP/IP 55513	_00:00:57.266	_00:00:00.001	 	 	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:00:59.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:00:59.646	_00:00:00.001	gidx	22	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:02.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:02.648	_00:00:00.001	gidx	23	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:05.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:05.649	_00:00:00.001	gidx	24	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:08.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:08.651	_00:00:00.001	gidx	25	
+bliE		Stimulus Event	ECI TCP/IP 55513	_00:01:11.397	_00:00:00.001	 	 	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:01:11.412	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:01:13.422	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:13.955	_00:00:00.001	gidx	26	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:01:16.421	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:16.956	_00:00:00.001	gidx	27	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:01:19.421	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:19.958	_00:00:00.001	gidx	28	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:01:22.421	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:22.960	_00:00:00.001	gidx	29	
+bliS		Stimulus Event	ECI TCP/IP 55513	_00:01:25.511	_00:00:00.001	 	 	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:01:25.512	_00:00:00.001	 	 	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:27.522	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:27.912	_00:00:00.001	gidx	30	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:30.522	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:30.914	_00:00:00.001	gidx	31	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:33.521	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:33.916	_00:00:00.001	gidx	32	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:01:36.521	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:36.917	_00:00:00.001	gidx	33	
+gazS		Stimulus Event	ECI TCP/IP 55513	_00:01:39.626	_00:00:00.001	 	 	
+bliE		Stimulus Event	ECI TCP/IP 55513	_00:01:39.627	_00:00:00.001	 	 	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:01:41.111	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:41.503	_00:00:00.001	gidx	34	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:01:43.616	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:44.004	_00:00:00.001	gidx	35	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:01:46.121	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:46.506	_00:00:00.001	gidx	36	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:01:48.611	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:49.007	_00:00:00.001	gidx	37	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:01:51.116	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:51.508	_00:00:00.001	gidx	38	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:01:53.621	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:54.010	_00:00:00.001	gidx	39	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:01:56.113	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:56.511	_00:00:00.001	gidx	40	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:01:58.631	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:01:59.012	_00:00:00.001	gidx	41	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:02:03.716	_00:00:00.001	 	 	
+gazE		Stimulus Event	ECI TCP/IP 55513	_00:02:03.716	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:02:05.711	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:06.266	_00:00:00.001	gidx	42	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:02:08.711	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:09.268	_00:00:00.001	gidx	43	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:02:11.711	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:12.270	_00:00:00.001	gidx	44	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:02:14.711	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:15.271	_00:00:00.001	gidx	45	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:02:17.801	_00:00:00.001	 	 	
+gazS		Stimulus Event	ECI TCP/IP 55513	_00:02:17.831	_00:00:00.001	 	 	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:02:19.391	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:19.774	_00:00:00.001	gidx	46	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:02:21.896	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:22.275	_00:00:00.001	gidx	47	
+srig		Stimulus Event	ECI TCP/IP 55513	_00:02:24.402	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:24.776	_00:00:00.001	gidx	48	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:02:26.891	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:27.278	_00:00:00.001	gidx	49	
+s_up		Stimulus Event	ECI TCP/IP 55513	_00:02:29.397	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:29.779	_00:00:00.001	gidx	50	
+sdow		Stimulus Event	ECI TCP/IP 55513	_00:02:31.901	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:32.280	_00:00:00.001	gidx	51	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:02:34.406	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:34.782	_00:00:00.001	gidx	52	
+slef		Stimulus Event	ECI TCP/IP 55513	_00:02:36.911	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:37.283	_00:00:00.001	gidx	53	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:02:41.981	_00:00:00.001	 	 	
+gazE		Stimulus Event	ECI TCP/IP 55513	_00:02:41.981	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:02:43.977	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:44.538	_00:00:00.001	gidx	54	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:02:46.976	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:47.540	_00:00:00.001	gidx	55	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:02:49.976	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:50.541	_00:00:00.001	gidx	56	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:02:52.987	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:53.543	_00:00:00.001	gidx	57	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:02:56.066	_00:00:00.001	 	 	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:02:56.068	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:02:58.076	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:02:58.629	_00:00:00.001	gidx	58	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:03:01.076	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:01.631	_00:00:00.001	gidx	59	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:03:04.076	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:04.632	_00:00:00.001	gidx	60	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:03:07.076	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:07.634	_00:00:00.001	gidx	61	
+bliS		Stimulus Event	ECI TCP/IP 55513	_00:03:10.166	_00:00:00.001	 	 	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:03:10.166	_00:00:00.001	 	 	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:12.162	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:12.553	_00:00:00.001	gidx	62	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:15.177	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:15.555	_00:00:00.001	gidx	63	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:18.162	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:18.557	_00:00:00.001	gidx	64	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:21.161	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:21.558	_00:00:00.001	gidx	65	
+bliE		Stimulus Event	ECI TCP/IP 55513	_00:03:24.251	_00:00:00.001	 	 	
+bliS		Stimulus Event	ECI TCP/IP 55513	_00:03:24.266	_00:00:00.001	 	 	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:26.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:26.644	_00:00:00.001	gidx	66	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:29.261	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:29.646	_00:00:00.001	gidx	67	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:32.396	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:32.764	_00:00:00.001	gidx	68	
+sbli		Stimulus Event	ECI TCP/IP 55513	_00:03:35.502	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:35.866	_00:00:00.001	gidx	69	
+oc_S		Stimulus Event	ECI TCP/IP 55513	_00:03:38.591	_00:00:00.001	 	 	
+bliE		Stimulus Event	ECI TCP/IP 55513	_00:03:38.591	_00:00:00.001	 	 	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:03:40.586	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:41.135	_00:00:00.001	gidx	70	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:03:43.571	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:44.137	_00:00:00.001	gidx	71	
+sclo		Stimulus Event	ECI TCP/IP 55513	_00:03:46.571	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:47.139	_00:00:00.001	gidx	72	
+sope		Stimulus Event	ECI TCP/IP 55513	_00:03:49.586	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:50.140	_00:00:00.001	gidx	73	
+oc_E		Stimulus Event	ECI TCP/IP 55513	_00:03:52.676	_00:00:00.001	 	 	
+endE		Stimulus Event	ECI TCP/IP 55513	_00:03:53.666	_00:00:00.001	 	 	
+DIN3		Stimulus Event	DIN 1	_00:03:55.009	_00:00:00.001	gidx	74	

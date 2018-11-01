@@ -171,7 +171,7 @@ def average_diff(diff_py,diff_ns):
 	Then calculates the absolute value, and returns averages.
 	"""
 	if len(diff_py) != len(diff_ns):
-		print "Length of Py log and Ns log different. Make sure event tags match."
+		print("Length of Py log and Ns log different. Make sure event tags match.")
 		return
 	else:
 		diff=list(np.array(diff_py)-np.array(diff_ns))
@@ -180,7 +180,7 @@ def average_diff(diff_py,diff_ns):
 			diff[i]=abs(diff[i])
 			#give simple text warning if difference exceeds over 15ms
 			if diff[i] >= 15:
-				print "WARNING: big diff at PY-NS timing: index# " + str(i) + ": " + str(diff[i]) + " (above 15ms)"
+				print("WARNING: big diff at PY-NS timing: index# " + str(i) + ": " + str(diff[i]) + " (above 15ms)")
 	avg=round(sum(diff)/len(diff),2)
 	return avg
 
@@ -214,7 +214,7 @@ def photocell_py(filename, pc_tag, *event_tags):
 	#give simple text warning if difference exceeds over 15ms
 	for i in range(0,len(diff_pypc)):
 		if diff_pypc[i] >= 15:
-			print "Warning: big difference detected at index " + str(i) + ": " + str(diff_pypc[i]) + " (above 15ms)"
+			print("Warning: big diff at Py index# " + str(i) + ": " + str(diff_pypc[i]) + " (above 15ms)")
 	if len(diff_pypc) != 0:
 		avg_pypc=round(sum(diff_pypc)/len(diff_pypc),1)
 	return avg_pypc
@@ -254,7 +254,7 @@ def photocell_ns(filename, *event_tags):
 	#give simple text warning if difference exceeds over 15ms
 	for i in range(0, len(diff_nspc)):
 		if diff_nspc[i] >= 15:
-			print "WARNING: big diff at NS Photocell index# " + str(i) + ": " + str(diff_nspc[i]) + " (above 15ms)"
+			print("WARNING: big diff at NS Photocell index# " + str(i) + ": " + str(diff_nspc[i]) + " (above 15ms)")
 	if len(diff_nspc) != 0:
 		avg_nspc=round(sum(diff_nspc)/len(diff_nspc),1)
 	return avg_nspc

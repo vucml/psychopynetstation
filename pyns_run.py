@@ -52,7 +52,7 @@ def pyns_diff(pylog, nslog, filter_py='data', *event_tags):
 	return avg
 
 # For running test1, test2 files:
-# example1 = pyns_diff('test2','test1','data','int','ope','clo','gaz','end')
+# example1 = pyns_diff('example_pylog','example_nslog','data','int','bli','sbl','oc_','scl','sop','gaz','sle','sri','s_u','sdo')
 
 
 ### Photocell Timing ###
@@ -77,4 +77,4 @@ def pyns_pc(pylog, nslog, pypc_tag='wsq', *event_tags):
 	return filtered_pypc, filtered_nspc
 
 # For running test1, test2 files:
-# example2 = pyns_pc('test2','test1','wsq','ope','clo','gaz')
+# example2 = pyns_pc('example_pylog', 'example_nslog', 'wsq', 'sbl','scl','sop','sle','sri','s_u','sdo')
