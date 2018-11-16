@@ -6,7 +6,7 @@ As the resources related to PsychoPy and NetStation connection seem very limitin
 
 For full documentation and details, please refer to Wiki, or docstring of each function (ie. help(function name)). The default values and setup are all currently configured to lab environment. The experiment can be run on local device without NetStation connection as well.
 
-Wiki table of content:
+## Wiki table of content:
 
 * [Home](https://github.com/vucml/psychopynetstation/wiki)
 * [PsychoPy Setup](https://github.com/vucml/psychopynetstation/wiki/PsychoPy_Setup)
