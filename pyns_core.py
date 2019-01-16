@@ -19,6 +19,7 @@ The second part measures and prints out timing difference for photocell timing i
 
 Type help(function name) for function docstring. ie. help(filter_pylog)
 """
+from __future__ import division
 import csv
 import time
 import pandas as pd
@@ -181,8 +182,8 @@ def average_diff(diff_py,diff_ns):
 			#give simple text warning if difference exceeds over 15ms
 			if diff[i] >= 15:
 				print("WARNING: big diff at PY-NS timing: index# " + str(i) + ": " + str(diff[i]) + " (above 15ms)")
-	avg=round(sum(diff)/len(diff),2)
-	return avg
+			avg=round(sum(diff)/len(diff),2)
+			return avg
 
 
 ### PsychoPy Photocell Timing ###
