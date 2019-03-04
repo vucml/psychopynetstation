@@ -1,12 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-This function runs simple basic tasks (ie. eye open & close, blink, gaze) and photocell alignment
-to properly configure EEG environment prior to running the actual experiment.
-Run this .py file on PsychoPy.
+This code runs simple basic tasks (ie. eye open & close, blink, look left/right/up/down) to detect eye related movements/waveforms.
 
-Below, You can set swtiches and change variables to vary the duration of experiment.
-Read comments for detail.
+Use:
+1. Set sequence 1, 2, 3 however you like
+2. Set swtiches and change variables to vary the duration of experiment
 
 Ex. To run this locally on your device without NetStation connection, make sure to turn switches:
 netstation=False
@@ -23,127 +20,96 @@ from numpy.random import random, randint, normal, shuffle
 import os
 import sys
 import decimal
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#                       Custom Variables                          #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-# 1=blinks
-# 2=open/close
-# 3=gaze
-seq=[1,1,1,1,2,2,2,3,3]
+
+
+##########################################
+#         Experiment Parameters          #
+##########################################
+# 1=blinks // 2=open/close // 3=gaze
+seq = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3]
+
+# switches #
+netstation  = False  # False to run the file locally w/o NetStation connection
+recording   = False  # True starts recording NetStation automatically
+
+#--------------------------------------------------------------------------#
+# vars             | values     | default     | description                #
+#--------------------------------------------------------------------------#
+dur_blank          = 0.5        # 0.5         # duration of blank transition
+blink_isi          = 2                        # blink every two seconds
+blink_per_block    = 4                        # N blinks per sequence
+openclose_isi      = 2
+openclose_per_block= 2
+gaze_isi           = 1.5
+gaze_per_block     = 2                        # look left, right, up, down X n
+
+# cross size/position
+cross_size         = 0.5
+gaze_horizontal_pos= 13                       #cross position in cm
+gaze_vertical_pos  = 10                       #cross position in cm
+
+# miscellenious
+endKey             = 'escape'                 # key to force exit
+pauseKey           = 'p'                      # key to pause
+mouse_visible      = False      # False       | false = mouse invisible
+fixation_size      = 0.7        # 0.7         | units in cm
+fullscreen         = True       # True
+
+
+# shuffler
 shuffle(seq)
-# Switches #
-netstation  = False       #False to run the file locally without connecting to NetStation
-recording   = False       #True starts recording NetStation automatically
-photocell   = True        #True allows use of photocell device
-
-# Duration of blank transition
-dur_iti=10
-# 'blink' custom var:
-blink_per_block=4
-blink_isi=120
-# 'openclose' custom var:
-openclose_per_block=2
-openclose_isi=120
-# 'gaze' custom var:
-gaze_per_block=2     #1=look left, right, up, down one each
-gaze_isi=90
-
-# Cross size/position
-cross_size=0.5
-gaze_horizontal_pos=13        #cross position in cm
-gaze_vertical_pos=10          #cross position in cm
-# Photocell variables #Default values are based on current lab environment
-dur_whitesquare=1 #Minimize duration of photocell square blinking
-square_width=0.5      #default: 0.5 cm
-square_height=0.5     #default: 0.5 cm
-square_pos=(14.9,11.2)#default: (14.9,11.2)
-square_opac=0.9       #default: 0.9 (range from 0-1)
-
-# Durations ! Do not change!
-dur_blink = (blink_per_block+1)*blink_isi+(blink_per_block*60)+dur_iti
 oc_seq=[1,2]*openclose_per_block
-dur_openclose = (len(oc_seq)+1)*openclose_isi+(len(oc_seq)*60)+dur_iti
-temp = ['']
 gaze_seq=['l','r','u','d']*gaze_per_block
 shuffle(gaze_seq)
-gaze_seq=temp+gaze_seq
-dur_gaze= (len(gaze_seq)+1)*gaze_isi+(len(gaze_seq)*60)+dur_iti
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#                    Initialize Components                        #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+##########################################
+#         Initialize Components          #
+##########################################
+# GUI to enter subj & experiment details
+gui = gui.Dlg(title="eog_blinks")
+gui.addFixedField("exp:", 'eog_blinks')
+gui.addField("SubjID:", '001')
+gui.show()
+if not gui.OK:
+    print('Cancelled')
+    core.quit()
+exp_name = gui.data[0]
+subj_id = gui.data[1]
+exp_summary = exp_name + '_'  + subj_id
+print('exp summary: ' + str(exp_summary))# NetStation setup
 
-# NetStation setup
+
 if netstation:
     import egi.simple as egi
     ms_localtime = egi.ms_localtime
     ns = egi.Netstation()
     print("Imported PyNetstation")
 
-# Ensure that relative paths start from the same directory as this script
-_thisDir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(_thisDir)
 
-# Experiment session info
-expName = 'pyns_exp'
-expInfo = {'participant': '', 'session': '001'}
-dlg = gui.DlgFromDict(dictionary=expInfo, title=expName)
-if dlg.OK == False:
-    core.quit()  # user pressed cancel
-expInfo['date'] = data.getDateStr()  # add a simple timestamp
-expInfo['expName'] = expName
+# create window
+win = visual.Window([800,800], fullscr=fullscreen, monitor='testMonitor', color=[0,0,0], colorSpace='rgb')
 
-# Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
 
-# An ExperimentHandler isn't essential but helps with data saving
-thisExp = data.ExperimentHandler(name=expName, version='',
-    extraInfo=expInfo, runtimeInfo=None,
-    originPath=None,
-    savePickle=True, saveWideText=True,
-    dataFileName=filename)
-# save a log file for detail verbose info
-logFile = logging.LogFile(filename+'.log', level=logging.EXP)
-logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
-endExpNow = False  # flag for 'escape' or other condition => quit the exp
+stimDir = os.getcwd() # pwd/base directory
+filename = os.path.join(stimDir, 'data/' + exp_summary)
+if os.path.isdir(filename):
+    print('DATA ALREADY EXISTS WITH SAME NAME!!! QUITTING...')
+    core.quit()
+if not os.path.isdir(filename):
+    os.makedirs(filename)
 
-win = visual.Window(
-    size=(1024, 768), fullscr=True, screen=0,
-    allowGUI=False, allowStencil=False,
-    monitor='testMonitor', color=[-1.0,-1.0,-1.0], colorSpace='rgb',
-    blendMode='avg', useFBO=True)
-expInfo['frameRate'] = win.getActualFrameRate()
 
-# Prepare components
-if photocell:
-    whitesquare = visual.Rect(
-        win=win, name='whitesquare', units='cm',
-        width=(square_width, square_height)[0], height=(square_width, square_height)[1],
-        ori=0, pos=square_pos,
-        lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
-        fillColor=[1,1,1], fillColorSpace='rgb',
-        opacity=square_opac, depth=0.0, interpolate=True)
-    alignClock = core.Clock()
-    align_text = visual.TextStim(win=win, name='intro_text',
-    text='Align the photocell to the white space displayed on the screen. \n\nPress spacebar to proceed.',
-    font='Arial',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
+# set text instructions
+instructions = "Hello,\n\nSounds will be played, instructing what to do. \nYou will be told to OPEN/CLOSE eyes, BLINK, or LOOK at a specific direction. When looking at a specific direction, make sure you look at the direction and then LOOK BACK at the center.\n\nPress spacebar to begin."
+ending = "You are done with the eye blink experiment!\n\nclosing..."
+
+
+InstrText = visual.TextStim(
+    win=win,text="",font='Arial',
+    pos=(0, 0), height=0.9, wrapWidth=None, ori=0,
     color='white', colorSpace='rgb', opacity=1,
-    depth=0.0);
-
-introClock = core.Clock()
-openClock = core.Clock()
-closeClock = core.Clock()
-gazeClock = core.Clock()
-endClock = core.Clock()
-
-intro_text = visual.TextStim(win=win, name='intro_text',
-    text='Hello,\n\nA sound will be played, instructing what to do. \nYou will be told to OPEN/CLOSE eyes, BLINK, or LOOK at specific direction. When looking at specific direction, make sure you look and fixate back to the center.\n\nPress spacebar to begin.',
-    font='Arial',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=0.0);
+    depth=0.0,units='cm') # alignHoriz='center',alignVert='center'
 center = visual.ShapeStim(win=win, name='center', units='cm',vertices='cross',
     size=(cross_size, cross_size),
     ori=0, pos=(0, 0),
@@ -174,141 +140,96 @@ down = visual.ShapeStim(win=win, name='down', units='cm',vertices='cross',
     lineWidth=1, lineColor=[1,1,1], lineColorSpace='rgb',
     fillColor=[1,1,1], fillColorSpace='rgb',
     opacity=1, depth=0.0, interpolate=True)
-blank = visual.TextStim(win=win, name='blank',
-    text=' ',
-    font='Arial',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=-1.0);
 
-# Sound Set
-sclo = sound.Sound('./sound/close_speak.wav')
-sclo.setVolume(1)
-sope = sound.Sound('./sound/open_speak.wav')
-sope.setVolume(1)
-sbli = sound.Sound('./sound/blink_speak.wav')
-sbli.setVolume(1)
-slef = sound.Sound('./sound/left_speak.wav')
-slef.setVolume(1)
-srig = sound.Sound('./sound/right_speak.wav')
-srig.setVolume(1)
-s_up = sound.Sound('./sound/up_speak.wav')
-s_up.setVolume(1)
-sdow = sound.Sound('./sound/down_speak.wav')
-sdow.setVolume(1)
 
-esc = visual.TextStim(win=win, name='esc',
-    text="End of test\n\nPress 'esc'",
-    font='Arial',
-    pos=(0, 0), height=0.1, wrapWidth=None, ori=0,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=0.0);
+# Sound components
+sound_close = sound.Sound('./sound/close_speak.wav')
+sound_close.setVolume(1)
+sound_open = sound.Sound('./sound/open_speak.wav')
+sound_open.setVolume(1)
+sound_blink = sound.Sound('./sound/blink_speak.wav')
+sound_blink.setVolume(1)
+sound_left = sound.Sound('./sound/left_speak.wav')
+sound_left.setVolume(1)
+sound_right = sound.Sound('./sound/right_speak.wav')
+sound_right.setVolume(1)
+sound_up = sound.Sound('./sound/up_speak.wav')
+sound_up.setVolume(1)
+sound_down = sound.Sound('./sound/down_speak.wav')
+sound_down.setVolume(1)
 
-# Create some handy timers
-globalClock = core.Clock()  # to track the time since experiment started
-routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine
 
 # helper functions:
-def show_screen():
-    center.setAutoDraw(True)
-    left.setAutoDraw(True)
-    right.setAutoDraw(True)
-    up.setAutoDraw(True)
-    down.setAutoDraw(True)
-def hide_screen():
-    center.setAutoDraw(False)
-    left.setAutoDraw(False)
-    right.setAutoDraw(False)
-    up.setAutoDraw(False)
-    down.setAutoDraw(False)
+def send_to_NS(type):
+    if netstation:
+        ns.sync()
+        ns.send_event(key=str(type), timestamp=None, pad=False)
+        logging.data('sent to NS: ' + str(type))
 
-# ------Prepare to start Routine "align"-------
-if photocell:
-    t = 0
-    alignClock.reset()
-    frameN = -1
-    continueRoutine = True
-    next = event.BuilderKeyResponse()
-    alignComponents = [align_text, next]
-    for thisComponent in alignComponents:
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-if not photocell:
-    continueRoutine = False
-    align_text = ''
-    next = event.BuilderKeyResponse()
-    alignComponents = [align_text, next]
-# -------Start Routine "align"-------
-while continueRoutine and photocell:
-    t = alignClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    if frameN >= 0.0 and align_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        align_text.tStart = t
-        align_text.frameNStart = frameN  # exact frame index
-        align_text.setAutoDraw(True)
-        whitesquare.setAutoDraw(True)
-    if frameN >= 0.0 and next.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        next.tStart = t
-        next.frameNStart = frameN  # exact frame index
-        next.status = STARTED
-        # keyboard checking is just starting
-        win.callOnFlip(next.clock.reset)  # t=0 on next screen flip
-        event.clearEvents(eventType='keyboard')
-    if next.status == STARTED:
-        theseKeys = event.getKeys(keyList=['space'])
 
-        # check for quit:
-        if "escape" in theseKeys:
-            endExpNow = True
-        if len(theseKeys) > 0:  # at least one key was pressed
-            next.keys = theseKeys[-1]  # just the last key pressed
-            next.rt = next.clock.getTime()
-            # a response ends the routine
-            continueRoutine = False
-
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in alignComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
+def pause_or_quit():
+    if event.getKeys(keyList=[endKey]):
+        print('esc quit')
+        win.close()
         core.quit()
-
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+    if event.getKeys(keyList=[pauseKey]):
+        event.clearEvents('keyboard')
+        pauseLabel.draw()
+        win.logOnFlip('paused', level=logging.DATA)
         win.flip()
-# -------Ending Routine "align"-------
-for thisComponent in alignComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-        whitesquare.setAutoDraw(False)
-# check responses
-if next.keys in ['', [], None]:  # No response was made
-    next.keys=None
-thisExp.addData('next.keys',next.keys)
-if next.keys != None:  # we had a response
-    thisExp.addData('next.rt', next.rt)
-thisExp.nextEntry()
-# the Routine "intro" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-# ------Prepare to start Routine "intro"-------
-t = 0
-introClock.reset()  # clock
-frameN = -1
-continueRoutine = True
-# update component parameters for each repeat
-next = event.BuilderKeyResponse()
-# keep track of which components have finished
-introComponents = [intro_text, next]
-for thisComponent in introComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
+        print('PAUSE')
+        event.waitKeys(keyList=[pauseKey], timeStamped=globalClock)
+        print('RESUME')
+
+
+def blanks():
+    InstrText.text = ' '
+    InstrText.draw()
+    win.flip()
+
+
+def blank_screen():
+    for frameN in range(int(round(dur_blank * 60))):
+        if frameN == 0:
+        #     send_to_NS(type, index)
+            win.logOnFlip('start blank', level=logging.DATA)
+        if frameN == int(round(dur_blank * 60)) - 1:
+            win.logOnFlip('end blank', level=logging.DATA)
+        pause_or_quit()
+        blanks()
+
+
+def show_screen():
+    center.draw()
+    left.draw()
+    right.draw()
+    up.draw()
+    down.draw()
+    win.logOnFlip('show screen', level=logging.DATA)
+    win.flip()
+
+
+# mouse cursor visibility
+win.mouseVisible = mouse_visible
+
+# set up log to keep track of all events across trials
+globalClock = core.Clock()
+
+# starts logging
+logging.setDefaultClock(globalClock)
+logging.console.setLevel(logging.ERROR) # logging.DATA
+logDat = logging.LogFile(stimDir + '/data/' + str(exp_summary) + '/'+ str(exp_summary) + '.log', filemode='w', level=logging.DEBUG)
+
+
+# Instructions
+int_timer = core.Clock()
+InstrText.text = instructions
+InstrText.draw()
+win.flip()
+inst_key = event.waitKeys(keyList=['space'], timeStamped=int_timer)
+pause_or_quit()
+
+
 # NetStation
 if netstation:
     ns.connect('10.0.0.42', 55513)
@@ -318,332 +239,77 @@ if netstation:
         ns.StartRecording()
         print("Recording ...")
 
-# -------Start Routine "intro"-------
 
-### NetStation ###
-if netstation:
-    ns.sync()
-    logging.data('intS' + ' | frame count: ' + str(frameN))
-    ns.send_event(key='intS', timestamp=None,pad=False)
-
-while continueRoutine:
-    # get current time
-    t = introClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
-
-    # *intro_text* updates
-    if frameN >= 0.0 and intro_text.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        intro_text.tStart = t
-        intro_text.frameNStart = frameN  # exact frame index
-        intro_text.setAutoDraw(True)
-
-    # *next* updates
-    if frameN >= 0.0 and next.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        next.tStart = t
-        next.frameNStart = frameN  # exact frame index
-        next.status = STARTED
-        # keyboard checking is just starting
-        win.callOnFlip(next.clock.reset)  # t=0 on next screen flip
-        event.clearEvents(eventType='keyboard')
-    if next.status == STARTED:
-        theseKeys = event.getKeys(keyList=['space'])
-
-        # check for quit:
-        if "escape" in theseKeys:
-            endExpNow = True
-        if len(theseKeys) > 0:  # at least one key was pressed
-            next.keys = theseKeys[-1]  # just the last key pressed
-            next.rt = next.clock.getTime()
-            # a response ends the routine
-            continueRoutine = False
-
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in introComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "intro"-------
-for thisComponent in introComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-# check responses
-if next.keys in ['', [], None]:  # No response was made
-    next.keys=None
-thisExp.addData('next.keys',next.keys)
-if next.keys != None:  # we had a response
-    thisExp.addData('next.rt', next.rt)
-thisExp.nextEntry()
-# the Routine "intro" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
-### NetStation ###
-if netstation:
-    ns.sync()
-    logging.data('intE' + ' | frame count: ' + str(frameN))
-    ns.send_event(key='intE', timestamp=None,pad=False)
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-#                       Experiment Loop                           #
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-for trial in range(len(seq)):
-    # check for blinks
-    if seq[trial] == 1:
-        t = 0
-        openClock.reset()
-        frameN = -1
-        sclo.setSound('./sound/blink_speak.wav')
-        blink_interval=[]
-        pc_start=[]
-        pc_end=[]
-
-        if netstation:
-            ns.sync()
-            logging.data('bliS' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='bliS', timestamp=None,pad=False)
-
-        for frameN in range(dur_blink):
-            t = openClock.getTime()
-            frameN = frameN + 1
-            win.flip()
+##########################################
+#         Begin Experiment Loop          #
+##########################################
+for i in range(0, len(seq)):
+    blank_screen()
+    # 1 = blinks
+    if i == 1:
+        sound_blink.setSound('./sound/blink_speak.wav')
+        for i in range(0, blink_per_block):
+            pause_or_quit()
             show_screen()
+            core.wait(blink_isi / 2)
+            sound_blink.play()
+            send_to_NS('blik')
+            core.wait(blink_isi / 2)
 
-            for i in range(blink_per_block+1):
-                if frameN == blink_isi * i + (60 * (i-1)):
-                    sbli.play()
-                    if netstation:
-                        ns.sync()
-                        logging.data('sbli' + ' | frame count: ' + str(frameN))
-                        ns.send_event(key='sbli', timestamp=None,pad=False)
-                    blink_interval.append(frameN)
-                    pc_start=[x+20 for x in blink_interval]
-                    pc_end=[x+dur_whitesquare for x in pc_start]
-            if photocell:
-                for i in range(len(pc_start)):
-                    if frameN == pc_start[i]:
-                        whitesquare.setAutoDraw(True)
-                        logging.data('wsqS')
-                for i in range(len(pc_end)):
-                    if frameN == pc_end[i]:
-                        whitesquare.setAutoDraw(False)
-            if dur_blink-frameN < dur_iti:
-                hide_screen()
-
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        routineTimer.reset()
-        if netstation:
-            ns.sync()
-            logging.data('bliE' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='bliE', timestamp=None,pad=False)
-
-    # check for open/close
-    if seq[trial] == 2:
-        t = 0
-        closeClock.reset()
-        frameN = -1
-        sclo.setSound('./sound/close_speak.wav')
-        sope.setSound('./sound/open_speak.wav')
-        oc_interval=[]
-        pc_start=[]
-        pc_end=[]
-
-        if netstation:
-            ns.sync()
-            logging.data('oc_S' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='oc_S', timestamp=None,pad=False)
-
-        for frameN in range(dur_openclose):
-            t = closeClock.getTime()
-            frameN = frameN + 1
-            win.flip()
+    # 2 = open/close
+    if i == 2:
+        sound_close.setSound('./sound/close_speak.wav')
+        sound_open.setSound('./sound/open_speak.wav')
+        for j in oc_seq:
+            pause_or_quit()
             show_screen()
+            core.wait(openclose_isi / 2)
+            if j == 1:
+                sound_close.play()
+                send_to_NS('open')
+            if j == 2:
+                sound_open.play()
+                send_to_NS('clos')
+            core.wait(openclose_isi / 2)
 
-            for i in range(1,len(oc_seq)+1):
-                if frameN == openclose_isi * i + (60 * (i - 1)):
-                    if i % 2 != 0: # check for odd seq
-                        sclo.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('sclo' + ' | frame count: ' + str(frameN))
-                            ns.send_event(key='sclo', timestamp=None,pad=False)
-                    if i % 2 == 0: # check for even seq
-                        sope.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('sope' + ' | frame count: ' + str(frameN))
-                            ns.send_event(key='sope', timestamp=None,pad=False)
-                    oc_interval.append(frameN)
-                    pc_start=[x+30 for x in oc_interval]
-                    pc_end=[x+dur_whitesquare for x in pc_start]
-            if photocell:
-                for i in range(len(pc_start)):
-                    if frameN == pc_start[i]:
-                        whitesquare.setAutoDraw(True)
-                        logging.data('wsqS')
-                for i in range(len(pc_end)):
-                    if frameN == pc_end[i]:
-                        whitesquare.setAutoDraw(False)
-            if dur_openclose-frameN < dur_iti:
-                hide_screen()
-
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        routineTimer.reset()
-        if netstation:
-            ns.sync()
-            logging.data('oc_E' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='oc_E', timestamp=None,pad=False)
-
-
-    # check for gaze
-    if seq[trial] == 3:
-        t = 0
-        gazeClock.reset()
-        frameN = -1
-        slef.setSound('./sound/left_speak.wav')
-        srig.setSound('./sound/right_speak.wav')
-        s_up.setSound('./sound/up_speak.wav')
-        sdow.setSound('./sound/down_speak.wav')
-        gaze_interval=[]
-        pc_start=[]
-        pc_end=[]
-
-        if netstation:
-            ns.sync()
-            logging.data('gazS' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='gazS', timestamp=None,pad=False)
-
-        for frameN in range(dur_gaze):
-            t = gazeClock.getTime()
-            frameN = frameN + 1
-            win.flip()
+    # 3 = look left/right/up/down
+    if i == 3:
+        sound_left.setSound('./sound/left_speak.wav')
+        sound_right.setSound('./sound/right_speak.wav')
+        sound_up.setSound('./sound/up_speak.wav')
+        sound_down.setSound('./sound/down_speak.wav')
+        for j in gaze_seq:
+            pause_or_quit()
             show_screen()
-            for i in range(1,len(gaze_seq)):
-                if frameN == gaze_isi * i + (60 * (i - 1)):
-                    if gaze_seq[i]=='l':
-                        slef.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('slef')
-                            ns.send_event(key='slef', timestamp=None,pad=False)
-                    if gaze_seq[i]=='r':
-                        srig.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('srig')
-                            ns.send_event(key='srig', timestamp=None,pad=False)
-                    if gaze_seq[i]=='u':
-                        s_up.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('s_up')
-                            ns.send_event(key='s_up', timestamp=None,pad=False)
-                    if gaze_seq[i]=='d':
-                        sdow.play()
-                        if netstation:
-                            ns.sync()
-                            logging.data('sdow')
-                            ns.send_event(key='sdow', timestamp=None,pad=False)
-                    gaze_interval.append(frameN)
-                    pc_start=[x+20 for x in gaze_interval]
-                    pc_end=[x+dur_whitesquare for x in pc_start]
-            if photocell:
-                for i in range(len(pc_start)):
-                    if frameN == pc_start[i]:
-                        whitesquare.setAutoDraw(True)
-                        logging.data('wsqS')
-                for i in range(len(pc_end)):
-                    if frameN == pc_end[i]:
-                        whitesquare.setAutoDraw(False)
-            if dur_gaze-frameN < dur_iti:
-                hide_screen()
+            core.wait(gaze_isi / 2)
+            if j == 'l':
+                sound_left.play()
+                send_to_NS('left')
+            if j == 'r':
+                sound_right.play()
+                send_to_NS('rigt')
+            if j == 'u':
+                sound_up.play()
+                send_to_NS('uupp')
+            if j == 'd':
+                sound_down.play()
+                send_to_NS('down')
+            core.wait(gaze_isi / 2)
 
-        if endExpNow or event.getKeys(keyList=["escape"]):
-            core.quit()
-        routineTimer.reset()
-        if netstation:
-            ns.sync()
-            logging.data('gazE' + ' | frame count: ' + str(frameN))
-            ns.send_event(key='gazE', timestamp=None,pad=False)
 
-# ------Prepare to start Routine "end"-------
-t = 0
-endClock.reset()  # clock
-frameN = -1
-continueRoutine = True
-# update component parameters for each repeat
-# keep track of which components have finished
-endComponents = [esc]
-for thisComponent in endComponents:
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
+# end the experiment
+int_timer = core.Clock()
+InstrText.text = ending
+InstrText.draw()
+win.logOnFlip('end', level=logging.DATA)
+win.flip()
+core.wait(2)
+print('end of experiment!')
 
-# -------Start Routine "end"-------
-while continueRoutine:
-    # get current time
-    t = endClock.getTime()
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
+# end netstation recording
+if netstation and recording:
+    ns.StopRecording()
 
-    # *esc* updates
-    if t >= 0.0 and esc.status == NOT_STARTED:
-        # keep track of start time/frame for later
-        esc.tStart = t
-        esc.frameNStart = frameN  # exact frame index
-        esc.setAutoDraw(True)
-    if esc.status == STARTED and frameN >= (esc.frameNStart + 60):
-        esc.setAutoDraw(False)
-
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in endComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-
-    # check for quit (the Esc key)
-    if endExpNow or event.getKeys(keyList=["escape"]):
-        core.quit()
-
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# -------Ending Routine "end"-------
-for thisComponent in endComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-# the Routine "end" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
-# NetStation
-if netstation:
-    ns.sync()
-    logging.data('endE' + ' | frame count: ' + str(frameN))
-    ns.send_event(key='endE', timestamp=None,pad=False)
-
-# these shouldn't be strictly necessary (should auto-save)
-thisExp.saveAsWideText(filename+'.csv')
-thisExp.saveAsPickle(filename)
-logging.flush()
-# make sure everything is closed down
-thisExp.abort()  # or data files will save again on exit
-win.close()
+# exit out
+core.wait(2)
 core.quit()
